@@ -143,17 +143,8 @@ Nualartの本では$\mathcal{H}_{n_1,n_2,...}$の部分が多重確率積分と�
 実際，これらの項は重複Wiener積分と関連づけられることを次の節で示す．
 それが示されれば，Nualartの本の定理の証明が完了する．
 
-\subsubsection{定理の証明}
-\begin{proof}[Theorem \ref{thm9.4.5} の証明]
-\end{proof}
-\begin{proof}[Theorem \ref{thm9.4.9} の証明]
-\end{proof}
-\begin{proof}[Theorem \ref{thm9.5.3} の証明]
-\end{proof}
-\begin{proof}[Theorem \ref{thm9.5.4} の証明]
-\end{proof}
 % -------------------------
-% -------subsection1
+% -------subsection2
 \subsection{正規直交基底の重複Wiener積分による表現}
 この節では重複Wiener積分を定め，その重複Wiener積分がHermite多項式および斉次chaosと関連することを示す．
 
@@ -166,7 +157,7 @@ Nualartの本では$\mathcal{H}_{n_1,n_2,...}$の部分が多重確率積分と�
 $T^n$の部分集合で$[t_1^{(1)},t_1^{(2)})\times[t_2^{(1)},t_2^{(2)})\times\cdots\times[t_n^{(1)},t_n^{(2)})$の形をとる集合を長方形と呼ぶ．
 
 % ----
-\subsubsection*{Step 1. Off-diagonal step functions}
+\subsubsection*{Step 1. 対角なし階段関数(Off-diagonal step functions)}
 $T^n$上の階段関数とは
 \eq{f=\sum_{1\le i_1,i_2,...,i_n\le k}a_{i_1,i_2,...,i_n}1_{[\tau_{i_1-1},\tau_{i_1})\times[\tau_{i_2-1},\tau_{i_2})\times\cdots\times[\tau_{i_n-1},\tau_{i_n})}}
 と表される関数である．ただし，$a=\tau_0<\tau_1<\tau_2<\cdots<\tau_k=b$とする．
@@ -203,7 +194,7 @@ $f$が対角なし階段関数ならば，$E\left(I_n(f)\right)=0$であり
 \end{lemma}
 
 % ----
-\subsubsection*{Step 2. Approximation by off-diagonal step functions}
+\subsubsection*{Step 2. 対角なし階段関数による近似}
 集合$D$は$D=\cup_{i\neq j}[\{t_i=t_j\}\cap D]$と書き直すことができる．
 これは，集合$D$は$(n-1)$次元超平面の共通部分に関する有限和で表されるということで，
 すなわち集合$D$のLebesgue測度は$0$であるということである．
@@ -290,7 +281,17 @@ $f\in L^2(T^n),n\ge1$ならば，$I_n(f)\in K_n$である．
 が成り立つ．
 \end{theorem}
 
-\subsubsection{定理の証明}
+% -------------------------
+% -------subsection3
+\subsection{定理の証明}
+\begin{proof}[Theorem \ref{thm9.4.5} の証明]
+\end{proof}
+\begin{proof}[Theorem \ref{thm9.4.9} の証明]
+\end{proof}
+\begin{proof}[Theorem \ref{thm9.5.3} の証明]
+\end{proof}
+\begin{proof}[Theorem \ref{thm9.5.4} の証明]
+\end{proof}
 \begin{proof}[Lemma \ref{lem9.6.2} の証明]
 \end{proof}
 \begin{proof}[Lemma \ref{lem9.6.3} の証明]
@@ -305,23 +306,6 @@ $f\in L^2(T^n),n\ge1$ならば，$I_n(f)\in K_n$である．
 \end{proof}
 \begin{proof}[Theorem \ref{thm9.7.3} の証明]
 \end{proof}
-% -------subsubsection1
-\subsection{Hermite多項式}
-Hermite多項式について次が成り立つ．
-\begin{theorem}
-$\nu$を平均$0$分散$\rho$のGauss測度とするとき，
-任意の関数$f\in L^2(\nu)$は一意に
-\eq{f(x)=\sum_{n=0}^\infty a_n\frac{H_n(x;\rho)}{\sqrt{n!\rho^n}}}
-と展開される．ここで$H_n(x;\rho)$はHermite多項式：
-\eq{H_n(x;\rho)=\sum_{k=0}^{[n/2]}\left(\begin{matrix}n\\2k\end{matrix}\right)(2k-1)!!(-\rho)^kx^{n-2k}}
-であり，係数$a_n$は
-\eq{a_n=\frac{1}{\sqrt{n!\rho^n}}\int_{-\infty}^\infty f(x)H_n(x;\rho)d\nu(x), n\ge 0}
-で与えらえる．さらに次が成り立つ．
-\eq{||f||^2=\sum_{n=0}^\infty a_n^2.}
-\end{theorem}
-
-
-
 
 
 
