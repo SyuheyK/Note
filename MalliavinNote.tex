@@ -13,6 +13,7 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{definition}{Definition}
 \newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
 
 
 
@@ -221,7 +222,7 @@ $f\in L^2(T^n)$に対して，(\ref{LimitMultiInt})で定められる極限$I_n(
 \eq{\int_{T^n}f(_1,...,t_n)dB(t_1)\cdots dB(t_n)}
 と表す．
 \end{definition}
-Lemma \ref{9.6.4} を用いれば Lemma \ref{lem9.6.2} およびLemma \ref{lem9.6.3}の結果は$f\in L^2(T^n)$に対して拡張可能である．
+Lemma \ref{lem9.6.4} を用いれば Lemma \ref{lem9.6.2} およびLemma \ref{lem9.6.3}の結果は$f\in L^2(T^n)$に対して拡張可能である．
 これを以下にまとめる．
 \begin{theorem}\label{9.6.6}
 $f\in L^2(T^n),n\ge1$とするとき次が成り立つ．
@@ -288,7 +289,7 @@ $f\in L^2(T^n),n\ge1$ならば，$I_n(f)\in K_n$である．
 
 % -------------------------
 % -------subsection3
-\subsection{定理の証明}
+\subsection{命題の証明}
 \begin{proof}[Theorem \ref{thm9.4.5} の証明]
 \end{proof}
 \begin{proof}[Theorem \ref{thm9.4.9} の証明]
@@ -316,6 +317,77 @@ $f\in L^2(T^n),n\ge1$ならば，$I_n(f)\in K_n$である．
 % 2. Derivative Operator
 % --------------------
 \section{Derivative Operator}
+Brown運動$W(h)$は確率空間$(\Omega,\mathcal{F}^B,P)$上で定められ，その添字全体の集合をHilbert空間$H$とする．
+微分の定義の前にいくつかの記号を定義する．
+$C_p^\infty(\mathbb{R}^n)$を無限回連続微分可能な関数$f:\mathbb{R}^n\rightarrow\mathbb{R}$で，その偏微分が$p$次多項式のオーダーで増大するものの集合とする．
+同様に，偏微分が有限である関数$f$の集合を$C^\infty_b(\mathbb{R}^n)$，コンパクトな台を持つ関数$f$の集合を$C^\infty_0(\mathbb{R}^n)$と表す．
+偏微分の表記については$\partial_if=\frac{\partial f}{\partial x_i}$および$\nabla f=(\partial_1f,...,\partial_nf)$を用いる．
+
+また，
+\eq{F=f(W(h_1),...,W(h_n))\label{RVform}}
+で表される確率変数で$f$が$C_p^\infty(\mathbb{R}^n)$に属する，なめらかな確率変数$F$の集合を$\mathcal{S}$と表す．
+(\ref{RVform})で定められる滑らかな確率変数で，
+$f$が$C_b^\infty(\mathbb{R}^n)$に含まれるものの集合を$\mathcal{S}_b$，
+$f$が$C_0^\infty(\mathbb{R}^n)$に含まれるものの集合を$\mathcal{S}_0$，
+$f$が多項式である確率変数の集合を$\mathcal{P}$と表す．
+$\mathcal{P}\subset\mathcal{S}$，$\mathcal{S}_0\subset\mathcal{S}_b\subset\mathcal{S}$という関係式が成り立ち，$\mathcal{P}$と$\mathcal{S}_0$は$L^2(\Omega)$の中で稠密に存在することに注意．
+
+以上の定義をもとに，添字集合を値にとる確率変数に対する微分を次のように定める．
+\begin{definition}
+(\ref{RVform})の形で表される滑らかな確率変数$F$の微分$DF$を，次で表される$H$-値確率変数で定める．
+\eq{DF=\sum_{i=1}^n\partial_if(W(h_1),...,W(h_n))h_i.}
+\end{definition}
+例えば$n=1,f=x$のときは，$\partial f=\partial x=1$より$DW(h)=\partial W(h)h=h$となる．
+% ↓よくわからない，不要なら消す
+$DF$を方向微分と解するには，任意の$h\in H$に対して，
+\eq{\langle DF,h\rangle_H
+%	&=\sum_{i=1}^n\partial_i\left\langle f(W(h_1),...,W(h_n))h_i,h\right\rangle_H\\
+%	&=\sum_{i=1}^n\langle\lim_{\epsilon\rightarrow0}\frac{1}{\epsilon}f(W(h_1)+\epsilon,...,W(h_n))h_i,h\rangle_H\\}
+% ?解けない？
+	&=\lim_{\epsilon\rightarrow0}\frac{1}{\epsilon}\left[f(W(h_1)+\epsilon\left\langle h_1,h\right\rangle_H,...,W(h_n)+\epsilon\left\langle h_n,h\right\rangle_H)-f(W(h_1),...,W(h_n))\right].}
+が得られることに注意する．ラフに言うと，$\langle DF,h\rangle_H$は，シフトした過程$\{W(g)+\epsilon\langle g,h\rangle_H,g\in H\}$と確率変数$F$を合わせた$\epsilon=0$における微分であると解することができる．
+
+次の結果はいわゆる部分積分の公式である．
+\begin{lemma}\label{lem1.2.1}
+$F$を滑らかな確率変数とし，$h\in H$とすると次が成り立つ．
+\eq{E\left(\langle DF,h\rangle_H\right)=E\left(FW(h)\right).}
+\end{lemma}
+この補題を確率変数の積$FG$に適用することで次の結果が得られる．
+\begin{lemma}\label{lem1.2.2}
+$F,G$を滑らかな確率変数，$h\in H$とするとき，次が成り立つ．
+\eq{E\left(G\langle DF,h\rangle_H\right)=E\left(-F\langle DG,h\rangle_H+FGW(h)\right)}
+\end{lemma}
+さらにこの補題から次の結果が得られる．
+\begin{proposition}\label{prop1.2.1}
+任意の$p\ge1$に対して，作用素$D$は$L^p(\Omega)$から$L^p(\Omega;H)$への作用素として閉じている．
+\end{proposition}
+
+任意に$p\ge1$を固定して，$L^2(\Omega)$内の$D$の定義域を$\mathbb{D}^{1,p}$と表す．
+$\mathbb{D}^{1,p}$の意味は，滑らかな確率変数の集合$\mathcal{S}$のノルム
+\eq{||F||_{1,p}=\left[E(|F|^p)+E(||DF||_H^p)\right]^{1/p}}
+に関する閉包という意味である．
+$p=2$のとき，$\mathbb{D}^{1,2}$は内積
+\eq{\langle F,G\rangle_{1,2}=E(FG)+E(\langle DF,DG\rangle_H)}
+を持つHilbert空間である．
+
+滑らかな確率変数$F$に対して，$k$ 階の微分$D^kF$は$H^{\otimes k}$に値をとる確率変数として定めることができる．
+$p\ge1$と自然数$k\ge1$に対して，$\mathcal{S}$上の準ノルムを
+\eq{||F||_{k,p}=\left[E(|F|^p)\sum_{j=1}^kE\left(||D^jF||^p_{H^{\otimes j}}\right)\right]^{1/p}}
+で定める．
+この準ノルムは次の性質を持つ．
+\enums{
+	\item 単調性：任意の$F\in\mathcal{S}$に対して，$||F||_{k,p}\le||F||_{j,q},p\le q,k\le j$が成り立つ．
+	\item 閉じている：任意の$p\ge1$に対して，$\mathcal{S}$から$L^p\left(\Omega,;H^{\otimes k}\right)$への作用素$D^k$は閉じている．
+	\item 無矛盾性：$p,q\ge1$を実数，$k,j$を自然数とする．$F_n$を滑らかな確率変数列とする．
+}
+
+\subsection{命題の証明}
+\begin{proof}[Lemma \ref{lem1.2.1} の証明]
+\end{proof}
+\begin{proof}[Lemma \ref{lem1.2.2} の証明]
+\end{proof}
+\begin{proof}[Proposition \ref{prop1.2.1} の証明]
+\end{proof}
 
 \begin{thebibliography}{5}
 	\bibitem{Kuo2006} Kuo, Hui-Hsiung: Introduction to Stochastic Integration, Springer, 2006.
