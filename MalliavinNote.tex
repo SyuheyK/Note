@@ -26,12 +26,16 @@
 \newcommand{\dcap}[1][]{\operatorname*{\cap_\mathnormal{#1}}}
 %
 \begin{document}
+% --------------------
+% 1. Chaos Expansion
+% --------------------
 \section{Wiener Chaos Expansion}
-この節はNualart の本にある以下の Theorem 1.1.2を示すことが目標である．
+この節はNualart\cite{Nualart2006} の本にある以下の Theorem 1.1.2を示すことが目標である．
 基本的で重要な定理であるが，Malliavin解析を展開する上ではこの定理を使うことしかしないため，
 この定理を認めて，次節へ進んでも本論の進行には影響しない．
+説明および証明は基本的にKuo\cite{Kuo2006}に従う．
 
-定理を述べる前に舞台設定を説明する．
+まず目標となる定理を述べる前に舞台設定を説明する．
 確率空間を$(\Omega, \mathcal{F}, P)$，$B(t)$を$P$に関するBrown運動とする．
 有限区間$[a, b]$に対して，関数$f\in L^2[a, b]$に関するWiener積分
 \eq{I(f)=\int_a^bf(t)dB(t)}
@@ -44,19 +48,20 @@
 $\Omega$上の$P$-二乗可積分なBrown汎関数で構成されるHilbert空間を$L^2_B(\Omega)$と表す．
 $L^2_B(\Omega)$は$L^2(\Omega)$の部分空間となる．
 
-\begin{theorem}[Theorem 1.1.2]
+以上の設定のもと，Nualart\cite{Nualart2006}で述べられている定理は以下のものである．
+\begin{theorem}
 任意の二乗可積分な確率変数$F\in L^2(\Omega, \mathcal{F}^B, P)$は重複確率積分の系列$\{I_n(f_n)\}$で展開することができる:
 \eq{F=\sum_{n=0}^\infty I_n(f_n)}
 ここで，$f_0=E(F)$であり，$I_0$は定数への恒等写像である．
 さらに，$f_n\in L^2(T^n)$は対称で$F$により一意に定めることができる．
 \end{theorem}
 
-上の定理を示すために，以下の手順で説明を行う．
+Kuo\cite{Kuo2006}に従って上の定理を示すにあたって，以下の手順で説明を行う．
 \enums{
 	\item Hilbert空間$L^2_B(\Omega)$が直交部分空間の和で表されることを示し，それらの元から正規直交基底を構成できることを示す．
-	これにより直交補空間の元から構成された正規直交基底によって$\phi\in L^2_B(\Omega)$を表現できることがわかる．(9.4,9.5)
-	\item 重複Wiener積分を構成し，上記の正規直交基底と関連することを示す．(9.6,9.7)
-	\item この結果の応用例として，Nualartの本のTheorem1.1.3に示されているMartingale表現定理を示す．(9.8)
+	これにより直交補空間の元から構成された正規直交基底によって$\phi\in L^2_B(\Omega)$を表現できることがわかる．(Kuo\cite{Kuo2006} 9.4,9.5)
+	\item 重複Wiener積分を構成し，上記の正規直交基底と関連することを示す．(Kuo\cite{Kuo2006} 9.6,9.7)
+	\item この結果の応用例として，Nualartの本のTheorem1.1.3に示されているMartingale表現定理を示す．(Kuo\cite{Kuo2006} 9.8)
 }
 
 % -------------------------
@@ -307,7 +312,14 @@ $f\in L^2(T^n),n\ge1$ならば，$I_n(f)\in K_n$である．
 \begin{proof}[Theorem \ref{thm9.7.3} の証明]
 \end{proof}
 
+% --------------------
+% 2. Derivative Operator
+% --------------------
+\section{Derivative Operator}
 
-
+\begin{thebibliography}{5}
+	\bibitem{Kuo2006} Kuo, Hui-Hsiung: Introduction to Stochastic Integration, Springer, 2006.
+	\bibitem{Nualart2006} Nualart, D.: The Malliavin Calculus and Related Topics Second Edition, Springer, 2006.
+\end{thebibliography}
 
 \end{document}
