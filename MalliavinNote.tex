@@ -14,7 +14,7 @@
 \newtheorem{definition}{Definition}
 \newtheorem{lemma}{Lemma}
 \newtheorem{proposition}{Proposition}
-
+\newtheorem{corollary}{Corollary}
 
 
 % ShortCut Environments ---------------------------------------------------
@@ -314,9 +314,19 @@ $f\in L^2(T^n),n\ge1$ならば，$I_n(f)\in K_n$である．
 \end{proof}
 
 % --------------------
-% 2. Derivative Operator
+% 2. The Derivative Operator
 % --------------------
-\section{Derivative Operator}
+\section{The Derivative Operator}
+微分作用素については以下の段取りでNualart\cite{Nualart2006} の1.2節の内容を説明する．
+\enums{
+	\item 微分作用素の定義
+	\item 微分作用素の例
+	\item 微分作用素の性質
+}
+
+% ------------------------
+% 微分作用素の定義
+\subsection{微分作用素の定義}
 Brown運動$W(h)$は確率空間$(\Omega,\mathcal{F}^B,P)$上で定められ，その添字全体の集合をHilbert空間$H$とする．
 微分の定義の前にいくつかの記号を定義する．
 $C_p^\infty(\mathbb{R}^n)$を無限回連続微分可能な関数$f:\mathbb{R}^n\rightarrow\mathbb{R}$で，その偏微分が$p$次多項式のオーダーで増大するものの集合とする．
@@ -337,7 +347,6 @@ $\mathcal{P}\subset\mathcal{S}$，$\mathcal{S}_0\subset\mathcal{S}_b\subset\math
 (\ref{RVform})の形で表される滑らかな確率変数$F$の微分$DF$を，次で表される$H$-値確率変数で定める．
 \eq{DF=\sum_{i=1}^n\partial_if(W(h_1),...,W(h_n))h_i.}
 \end{definition}
-例えば$n=1,f=x$のときは，$\partial f=\partial x=1$より$DW(h)=\partial W(h)h=h$となる．
 % ↓よくわからない，不要なら消す
 $DF$を方向微分と解するには，任意の$h\in H$に対して，
 \eq{\langle DF,h\rangle_H
@@ -371,15 +380,101 @@ $p=2$のとき，$\mathbb{D}^{1,2}$は内積
 を持つHilbert空間である．
 
 滑らかな確率変数$F$に対して，$k$ 階の微分$D^kF$は$H^{\otimes k}$に値をとる確率変数として定めることができる．
+
+% ------------------------------
+% 微分作用素の計算方法
+\subsection{微分作用素の例}
+微分作用素$D$の簡単な適用例として，
+$n=1,f=x$のときは，$\partial f=\partial x=1$より$DW(h)=\partial W(h)h=h$となる．
+
+% 普通の関数の微分計算
+\subsubsection{Nualart \cite{Nualart2006} 1.2.1 の例}
+冒頭の例に加えて，Nualart\cite{Nualart2006} 1.2.1項にある，white noise の例での種々の微分作用素の計算を説明する．
+この項の以降では，$H=L^2(T,\mathcal{B},\mu)$を可分Hilbert空間で，$\mu$は可測空間$(T,\mathcal{B})$上の$\sigma$-有限でアトムを持たない測度とする．
+
+$L^2(\Omega ;H)$，$L^2(T\times\Omega)$を区別するため，この場合の，確率変数$F\in\mathbb{D}^{1,2}$の微分を確率過程$\{D_tF,t\in T\}$で定める．
+さらに一般に$F\in\mathbb{D}^{k,2},k\ge 2$に対しては，微分
+\eq{D^kF=\{D^k_{_1,...,t_k}F,t_i\in T\}}
+は$T^k\times\Omega$上の可測関数となる．
+この定義では，$k\ge1$に対して，$D^kF$は測度$\mu^k\times P$に関してa.e.で定めることができる．
+
+正準空間$\Omega=C_0([0,1];\mathbb{R}^d)$上で定められた区間$[0,1]$上の$d$-次元Brown運動を考える．
+二乗可積分な微分を持つ絶対連続な関数$x:[0,1]\rightarrow\mathbb{R}^d$からなる$\Omega$の部分空間を$H^1$と表す．
+すなわち$x\in H^1$は，$x(t)=\int_0^t\dot{x}(s)d(s)$，$\dot{x}\in H=L^2([0,1];\mathbb{R}^d)$である．
+$H^1$はCameron-Martin空間と呼ばれる．
+$H^1$の内積を
+\eq{\langle x,y\rangle_{H^1}=\langle \dot{x},\dot{y}\rangle_{H}=\sum_{i=1}^d\int_0^1\dot{x}^i(s)\dot{y}^i(s)ds}
+と定めることで，$H$のHilbert空間としての構造を$H^1$へ移すことができ，$H^1$は$H$と位相同型(isomorphic)なHilbert空間となる．
+また，次の関係式から$H^1$の$\Omega$への単射は連続であることがわかる．
+\eq{\sup_{0\le t\le1}\left|x(t)\right|\le\int_0^1\left|\dot{x}(s)\right|ds\le||\dot{x}||_H=||x||_{H^1}}
+
+$d=1$として，$F=f(W(t_1),...,W(t_n)), f\in C^\infty_p(\mathbb{R}^n),0\le t_1<\cdots<t_n,W(t_i)=\int_0^{t_i}dW(t)=W(1_{[0,t_i]})$で定められる
+確率変数$F$に関して，$h\in H$に対する内積$\langle DF,h\rangle_H$を計算すると次のようになる．
+\eq{\langle DF,h\rangle_H
+	&=\sum_{i=1}^n\partial_if(W(t_1),...,W(t_n))\langle 1_{[0,t_i]},h\rangle_H\\
+	&=\sum_{i=1}^n\partial_if(W(t_1),...,W(t_n))\int_0^{t_i}h(s)ds\\
+	&=\left.\frac{d}{d\epsilon}F\left(\omega+\epsilon\int_0^\cdot h(s)ds\right)\right|_{\epsilon=0}.}
+したがって，内積$\langle DF,h\rangle_H$は$H^1$に属する$\int_0^\cdot h(s)ds$の方向に向かう$F$の方向微分と一致することがわかる．
+
+一方，$F$をFr\'echet微分可能とし$F$のFr\'echet微分に関する符号付測度を$\lambda^F$と表すと，$h\in H$に対して
+\eq{\langle DF,h\rangle_H
+	&=\int_0^1\lambda^F(dt)\left(\int_0^th(s)ds\right)dt
+	=\int_0^1\lambda^F\left((t,1]\right)h(t)dt}
+と計算できることから，$D_tF=\lambda^F((t,1])$が成り立つことがわかる．
+
+次に，一般に二乗可積分な確率変数$F$がWienerカオス展開により
+\eq{F=\sum_{n=1}I_n(f_n)\label{1.38}}
+と表されているものとする．
+ここでkernel$f_n$は$L^2(T^n)$に属する対称な関数である．
+この表現を用いると，次の命題のとおり，微分を簡単に計算することができる．
+\begin{proposition}\label{prop1.2.7}
+$F\in\mathbb{D}^{1,2}$を(\ref{1.38})で展開される二乗可積分な確率変数とするとき， 次が成り立つ．
+\eq{D_tF=\sum^\infty_{n=1}nI_{n-1}\left(f_n(\cdot,t)\right).}
+\end{proposition}
+この命題の意味は，$F$のWienerカオス展開のうち，一つの積分を消し，変数$t$を可変にし，各項に$n$をかければ，$D_tF$が得られるということ．
+ただし，$F$は
+\eq{F=\int_T\cdots\int_Tf_n(t_1,...,t_n)W(t_1)\cdots W(t_n)}
+で表され，微分作用素の定義域に属していなければならない．
+
+% 条件付き期待値の微分計算
+\subsubsection{条件付期待値に対する微分}
+前項の設定のまま，Gaussianの確率積分から生成される$\sigma$-加法族に関する条件付期待値の微分を計算する方法を説明する．
+$A\in\mathcal{B}$として，$\left\{W(B),B\subset A,B\mathcal{B}_0\right\}$から生成され，確率$P$に関して完備な$\sigma$-加法族を$\mathcal{F}_A$と表す．
+条件付期待値の計算公式を得る際の証明に以下の補題を使う．
+\begin{lemma}\label{lem1.2.5}
+$F$を(\ref{1.38})で展開される二乗可積分な確率変数とするとき，$A\in\mathcal{B}$に対して次が成り立つ．
+\eq{E\left(F|\mathcal{F}_A\right)=\sum^\infty_{n=0}I_n(f_n1_A^{\otimes n}).}
+\end{lemma}
+この補題を用いて，次の命題とその系を示すことができる．
+\begin{proposition}\label{prop1.2.8}
+$F\in\mathbb{D}^{1,2}$，$A\in\mathcal{B}$とすると，
+$E\left(F|\mathcal{F}_A\right)\in\mathbb{D}^{1,2}$であり，次が，$T\times\Omega$上でa.e.で成り立つ．
+\eq{D_t\left(E()F|\mathcal{F}_A\right)=E\left(D_tF|\mathcal{F}_A\right)1_A(t).}
+\end{proposition}
+\begin{corollary}\label{cor1.2.1}
+$A\in\mathcal{B}$とし，$F\in\mathbb{D}^{1,2}$は$\mathcal{F}_A$-可測であるとする．
+このとき，$D_tF$は$A^c\times\Omega$上a.e.で$0$となる．
+\end{corollary}
+
+% この定義は場所を変えた方がいいかもしれない
+最後に後の3節でSkorohod積分で使用する空間を定義する．
+可測集合$A\in\mathcal{B}$に対して，$A$上で微分可能な確率変数の集合を$\mathbb{D}^{A,2}$で表し，
+準ノルム
+\eq{||F||^2_{A,2}=E(F^2)+E\left(\int_A\left(D_tF\right)^2\mu(dt)\right)}
+によって$\mathcal{S}$の閉包として定める．
+
+% ------------------------
+% 微分作用素の性質
+\subsection{微分作用素の性質}
 $p\ge1$と自然数$k\ge1$に対して，$\mathcal{S}$上の準ノルムを
 \eq{||F||_{k,p}=\left[E(|F|^p)\sum_{j=1}^kE\left(||D^jF||^p_{H^{\otimes j}}\right)\right]^{1/p}}
-で定める．
-この準ノルムは次の性質を持つ．
+で定める．この準ノルムは次の性質を持つ．
 \enums{
 	\item 単調性：任意の$F\in\mathcal{S}$に対して，$||F||_{k,p}\le||F||_{j,q},p\le q,k\le j$が成り立つ．
 	\item 閉じている：任意の$p\ge1$に対して，$\mathcal{S}$から$L^p\left(\Omega,;H^{\otimes k}\right)$への作用素$D^k$は閉じている．
 	\item 無矛盾性：$p,q\ge1$を実数，$k,j$を自然数とする．$F_n$を滑らかな確率変数列とする．
 }
+
 
 \subsection{命題の証明}
 \begin{proof}[Lemma \ref{lem1.2.1} の証明]
