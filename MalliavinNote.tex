@@ -380,6 +380,23 @@ $p=2$のとき，$\mathbb{D}^{1,2}$は内積
 を持つHilbert空間である．
 
 滑らかな確率変数$F$に対して，$k$ 階の微分$D^kF$は$H^{\otimes k}$に値をとる確率変数として定めることができる．
+$p\ge1$と自然数$k\ge1$に対して，$\mathcal{S}$上の準ノルムを
+\eq{||F||_{k,p}=\left[E(|F|^p)\sum_{j=1}^kE\left(||D^jF||^p_{H^{\otimes j}}\right)\right]^{1/p}}
+で定める．この準ノルムは次の性質を持つ．
+\enums{
+	\item 単調性：任意の$F\in\mathcal{S}$に対して，$||F||_{k,p}\le||F||_{j,q},p\le q,k\le j$が成り立つ．
+	\item 閉じている：任意の$p\ge1$に対して，$\mathcal{S}$から$L^p\left(\Omega,;H^{\otimes k}\right)$への作用素$D^k$は閉じている．
+	\item 無矛盾性：$p,q\ge1$を実数，$k,j$を自然数とする．$F_n$を滑らかな確率変数列とする．
+}
+
+なめらかな確率変数の族$\mathcal{S}$をノルム$||\cdot||_{k,p}$完備化した集合族を$\mathbb{D}^{k,p}$と表す．
+上の性質1.から，$\mathbb{D}^{k+1,p}\subset\mathbb{D}^{k,p},k\ge0,p>q$がわかる．
+$k=0$については$||\cdot||_{0,p}=||\cdot||_p$，$\mathbb{D}^{0,p}=L^p(\Omega)$とおく．
+
+任意に$h\in H$を固定し，$\mathcal{S}$上の微分$D^h$を
+\eq{D^hF=\langle DF,h\rangle_H}
+で定める．
+Lemma \ref{lem1.2.2}より，任意の$p\ge1$に対してこの微分作用素は$L^p(\Omega)$から$L^p(\Omega)$への作用として閉じており，この微分作用素の定義域を$\mathbb{D}^{h,p}$と表す．
 
 % ------------------------------
 % 微分作用素の計算方法
@@ -466,15 +483,69 @@ $A\in\mathcal{B}$とし，$F\in\mathbb{D}^{1,2}$は$\mathcal{F}_A$-可測であ�
 % ------------------------
 % 微分作用素の性質
 \subsection{微分作用素の性質}
-$p\ge1$と自然数$k\ge1$に対して，$\mathcal{S}$上の準ノルムを
+$\mathcal{S}$に対して定めた準ノルム：
 \eq{||F||_{k,p}=\left[E(|F|^p)\sum_{j=1}^kE\left(||D^jF||^p_{H^{\otimes j}}\right)\right]^{1/p}}
-で定める．この準ノルムは次の性質を持つ．
+は次の性質を持つ．
 \enums{
 	\item 単調性：任意の$F\in\mathcal{S}$に対して，$||F||_{k,p}\le||F||_{j,q},p\le q,k\le j$が成り立つ．
 	\item 閉じている：任意の$p\ge1$に対して，$\mathcal{S}$から$L^p\left(\Omega,;H^{\otimes k}\right)$への作用素$D^k$は閉じている．
 	\item 無矛盾性：$p,q\ge1$を実数，$k,j$を自然数とする．$F_n$を滑らかな確率変数列とする．
 }
 
+微分作用素の定義域$\mathbb{D}^{1,2}$を以下のように特徴付けることができる．
+\begin{proposition}\label{prop1.2.2}
+$F$を二乗可積分な確率変数で$F=\sum^\infty{n=1}J_nF$でWienerカオス展開できるとする．
+$F\in\mathbb{D}^{1,2}$であるための必要十分条件は次式が成り立つことである．
+\eq{E\left(||^2_H\right)=sum^\infty_{n=1}n||J_nF||^2_2<\infty}
+さらに上式が成り立つならば，任意の$\ge1$に対して$D(J_nF)=J_{n-1}(DF)$がえらえる．
+\end{proposition}
+繰り返し適用することで，任意の$n\ge k\ge2$に対して$D^k(J_nF)=J_{n-k}(D^kF)$が得られるので，
+\eq{E\left(\left||D^kF\right||^2_{H^{\otimes k}}\right)=\sum^\infty_{n=k}n(n-1)\cdots(n-k+1)||J_nF||^2_2}
+かつ$F\in\mathbb{D}^{k,2}$が成り立つための必要十分条件は$\sum^\infty_{n=1}n^k||_nF||^2_2\infty$であることがわかる．
+
+次の結果が連鎖公式である．
+\begin{proposition}\label{prop1.2.3}
+$\varphi:\mathbb{R}^m\rightarrow\mathbb{R}$を偏微分が有限となる連続微分可能な関数とし，任意に$p\ge1$を固定する．
+$F=\left(F^1,...,F^m\right)$を各要素が$\mathbb{D}^{1,p}$に属する確率ベクトルとすると，$\varphi(F)\in\mathbb{D}^{1,p}$となり，次が成り立つ．
+\eq{D\left(\varphi(F)\right)=\sum^m_{i=1}\partial_i\varphi(F)DF^i.}
+\end{proposition}
+確率変数$F$をなめらなかな確率変数で近似し，関数$\varphi$を$\varphi*\psi_\epsilon$で近似することで示すことができる．
+ただし，$\psi_\epsilon$は恒等写像を近似する関数である．
+
+連鎖公式はLipschitz連続な関数に対して拡張可能であるが，その結果を示すために次の補題を示す必要がある．
+\begin{lemma}\label{lem1.2.3}
+$\left\{F_n;n\ge1\right\}$を，$L^2(\Omega)$内の確率変数$F$に収束する$\mathbb{D}^{1,2}$内の確率変数列で，
+\eq{\sup_nE\left(||DF_n||^2_H\right)<\infty}
+をみたすものとする．このとき，$F$は$\mathbb{D}^{1,2}$に属し，微分の列$\left\{DF_n,ge1\right\}$は$L^2(\Omega;H)$の弱位相で$DF$に収束する．
+\end{lemma}
+\begin{proposition}\label{prop1.2.4}
+$\varphi:\mathbb{R}^m\rightarrow\mathbb{R}$を，任意の$x,y\in\mathbb{R}^m$に対して
+\eq{|\varphi(x)-\varphi(y)|\le K|x-y|}
+をみたす関数とし，$F=(F^1,...,F^m)$を各要素が$\mathbb{D}^{1,2}$に属する確率ベクトルとする．
+このとき，$\varphi(F)\in\mathbb{D}^{1,2}$であり，
+$K$で有界な$G=(G_1,...,G_m)$が存在し，
+\eq{D\left(\varphi(F)\right)=\sum^m_{i=1}G_iDF^i\label{N1.35}}
+が成り立つ．
+\end{proposition}
+
+確率ベクトル$F$の分布が$\mathbb{R}^m$上のLebesgue測度に関して絶対連続ならば，(\ref{N1.35})で$G^i=\partial_i\varphi(F)$とすることができる．
+また，任意$p\ge1$で$\mathbb{D}^{1,2}$を$\mathbb{D}^{1,p}$に変えても，Proposition \ref{prop1.2.4}とLemma \ref{lem1.2.3}が成り立つ．
+%この事実はLemma \ref{lem1.5.3}と$D$と$\delta$の双対性ら成り立つ結果である．
+
+次の技術的結果を後で使う．
+\begin{lemma}\label{lem1.2.4}
+確率変数の族$\left\{1,W(h)G-D^hG,G\in\mathcal{S}_b,h\in H\right\}$は$L^2(\Omega)$全体の部分集合をなす．
+\end{lemma}
+
+\begin{proposition}\label{prop1.2.5}
+$F$を$\mathbb{D}^{1,1}$に属する確率変数で$DF=0$をみたすものとする．
+このとき，$F=E(F)$が成り立つ．
+\end{proposition}
+
+\begin{proposition}\label{prop1.2.6}
+$A\in\mathcal{F}$とする．
+$A$の定義関数が$\mathbb{D}^{1,1}$に属するための必要十分条件は$P(A)$が$0$または$1$を値にとることである．
+\end{proposition}
 
 \subsection{命題の証明}
 \begin{proof}[Lemma \ref{lem1.2.1} の証明]
