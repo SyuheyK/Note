@@ -324,6 +324,7 @@ $f\in L^2(T^n),n\ge1$ならば，$I_n(f)\in K_n$である．
 % ------------------------
 % 微分作用素の定義
 \subsection{微分作用素の定義}
+% 微分作用素自体の定義
 \subsubsection{微分作用素の定義}
 Brown運動$W(h)$は確率空間$(\Omega,\mathcal{F}^B,P)$上で定められ，その添字全体の集合をHilbert空間$H$とする．
 ここでは
@@ -333,7 +334,7 @@ $f$にどの程度の滑らかさが必要であるかは微分作用素の定�
 この$f$に対する偏微分の表記については$\partial_if=\frac{\partial f}{\partial x_i}$および$\nabla f=(\partial_1f,...,\partial_nf)$を用いる．
 まず，
 添字集合を値にとる確率変数に対する微分を次のように定める．
-\begin{definition}
+\begin{definition}\label{def1.2.1}%  -------definition1.2.1
 (\ref{RVform})の形で表される滑らかな確率変数$F$の微分$DF$を，次で表される$H$-値確率変数で定める．
 \eq{DF=\sum_{i=1}^n\partial_if(W(h_1),...,W(h_n))h_i.}
 \end{definition}
@@ -347,20 +348,21 @@ $DF$を方向微分と解するには，任意の$h\in H$に対して，
 が得られることに注意する．ラフに言うと，$\langle DF,h\rangle_H$は，シフトした過程$\{W(g)+\epsilon\langle g,h\rangle_H,g\in H\}$と確率変数$F$を合わせた$\epsilon=0$における微分であると解することができる．
 
 次の結果はいわゆる部分積分の公式である．
-\begin{lemma}\label{lem1.2.1}
+\begin{lemma}\label{lem1.2.1}%  -------lemma1.2.1
 $F$を滑らかな確率変数とし，$h\in H$とすると次が成り立つ．
 \eq{E\left(\langle DF,h\rangle_H\right)=E\left(FW(h)\right).}
 \end{lemma}
 この補題を確率変数の積$FG$に適用することで次の結果が得られる．
-\begin{lemma}\label{lem1.2.2}
+\begin{lemma}\label{lem1.2.2}%  -------lemma1.2.2
 $F,G$を滑らかな確率変数，$h\in H$とするとき，次が成り立つ．
 \eq{E\left(G\langle DF,h\rangle_H\right)=E\left(-F\langle DG,h\rangle_H+FGW(h)\right)}
 \end{lemma}
 さらにこの補題から次の結果が得られる．
-\begin{proposition}\label{prop1.2.1}
+\begin{proposition}\label{prop1.2.1}%  -------proposition1.2.1
 任意の$p\ge1$に対して，作用素$D$は$L^p(\Omega)$から$L^p(\Omega;H)$への作用素として閉じている．
 \end{proposition}
 
+% 定義域
 \subsubsection{微分作用素の定義域}
 微分作用素$D$の定義域を考えるために以下の関数空間を定めておく．
 $C_p^\infty(\mathbb{R}^n)$を無限回連続微分可能な関数$f:\mathbb{R}^n\rightarrow\mathbb{R}$で，その偏微分が$p$次多項式のオーダーで増大するものの集合とし，
@@ -447,7 +449,7 @@ $d=1$として，$F=f(W(t_1),...,W(t_n)), f\in C^\infty_p(\mathbb{R}^n),0\le t_1
 と表されているものとする．
 ここでkernel$f_n$は$L^2(T^n)$に属する対称な関数である．
 この表現を用いると，次の命題のとおり，微分を簡単に計算することができる．
-\begin{proposition}\label{prop1.2.7}
+\begin{proposition}\label{prop1.2.7}%  -------proposition1.2.7
 $F\in\mathbb{D}^{1,2}$を(\ref{1.38})で展開される二乗可積分な確率変数とするとき， 次が成り立つ．
 \eq{D_tF=\sum^\infty_{n=1}nI_{n-1}\left(f_n(\cdot,t)\right).}
 \end{proposition}
@@ -461,12 +463,12 @@ $F\in\mathbb{D}^{1,2}$を(\ref{1.38})で展開される二乗可積分な確率�
 前項の設定のまま，Gaussianの確率積分から生成される$\sigma$-加法族に関する条件付期待値の微分を計算する方法を説明する．
 $A\in\mathcal{B}$として，$\left\{W(B),B\subset A,B\in\mathcal{B}_0\right\}$から生成され，確率$P$に関して完備な$\sigma$-加法族を$\mathcal{F}_A$と表す．
 条件付期待値の計算公式を得る際の証明に以下の補題を使う．
-\begin{lemma}\label{lem1.2.5}
+\begin{lemma}\label{lem1.2.5}%  -------lemma1.2.5
 $F$を(\ref{1.38})で展開される二乗可積分な確率変数とするとき，$A\in\mathcal{B}$に対して次が成り立つ．
 \eq{E\left(F|\mathcal{F}_A\right)=\sum^\infty_{n=0}I_n(f_n1_A^{\otimes n}).}
 \end{lemma}
 この補題を用いて，次の命題とその系を示すことができる．
-\begin{proposition}\label{prop1.2.8}
+\begin{proposition}\label{prop1.2.8}%  -------proposition1.2.8
 $F\in\mathbb{D}^{1,2}$，$A\in\mathcal{B}$とすると，
 $E\left(F|\mathcal{F}_A\right)\in\mathbb{D}^{1,2}$であり，次が，$T\times\Omega$上でa.e.で成り立つ．
 \eq{D_t\left(E(F)|\mathcal{F}_A\right)=E\left(D_tF|\mathcal{F}_A\right)1_A(t).}
@@ -496,7 +498,7 @@ $\mathcal{S}$に対して定めた準ノルム：
 }
 
 微分作用素の定義域$\mathbb{D}^{1,2}$を以下のように特徴付けることができる．
-\begin{proposition}\label{prop1.2.2}
+\begin{proposition}\label{prop1.2.2}%  -------proposition1.2.2
 $F$を二乗可積分な確率変数で$F=\sum^\infty_{n=1}J_nF$でWienerカオス展開できるとする．
 $F\in\mathbb{D}^{1,2}$であるための必要十分条件は次式が成り立つことである．
 \eq{E\left(||DF||^2_H\right)=\sum^\infty_{n=1}n||J_nF||^2_2<\infty}
@@ -507,7 +509,7 @@ $F\in\mathbb{D}^{1,2}$であるための必要十分条件は次式が成り立�
 かつ$F\in\mathbb{D}^{k,2}$が成り立つための必要十分条件は$\sum^\infty_{n=1}n^k||J_nF||^2_2<\infty$であることがわかる．
 
 次の結果が連鎖公式である．
-\begin{proposition}\label{prop1.2.3}
+\begin{proposition}\label{prop1.2.3}%  -------proposition1.2.3
 $\varphi:\mathbb{R}^m\rightarrow\mathbb{R}$を偏微分が有限となる連続微分可能な関数とし，任意に$p\ge1$を固定する．
 $F=\left(F^1,...,F^m\right)$を各要素が$\mathbb{D}^{1,p}$に属する確率ベクトルとすると，$\varphi(F)\in\mathbb{D}^{1,p}$となり，次が成り立つ．
 \eq{D\left(\varphi(F)\right)=\sum^m_{i=1}\partial_i\varphi(F)DF^i.}
@@ -516,12 +518,12 @@ $F=\left(F^1,...,F^m\right)$を各要素が$\mathbb{D}^{1,p}$に属する確率�
 ただし，$\psi_\epsilon$は恒等写像を近似する関数である．
 
 連鎖公式はLipschitz連続な関数に対して拡張可能であるが，その結果を示すために次の補題を示す必要がある．
-\begin{lemma}\label{lem1.2.3}
+\begin{lemma}\label{lem1.2.3}%  -------lemma1.2.3
 $\left\{F_n;n\ge1\right\}$を，$L^2(\Omega)$内の確率変数$F$に収束する$\mathbb{D}^{1,2}$内の確率変数列で，
 \eq{\sup_nE\left(||DF_n||^2_H\right)<\infty}
 をみたすものとする．このとき，$F$は$\mathbb{D}^{1,2}$に属し，微分の列$\left\{DF_n,n\ge1\right\}$は$L^2(\Omega;H)$の弱位相で$DF$に収束する．
 \end{lemma}
-\begin{proposition}\label{prop1.2.4}
+\begin{proposition}\label{prop1.2.4}%  -------proposition1.2.4
 $\varphi:\mathbb{R}^m\rightarrow\mathbb{R}$を，任意の$x,y\in\mathbb{R}^m$に対して
 \eq{|\varphi(x)-\varphi(y)|\le K|x-y|}
 をみたす関数とし，$F=(F^1,...,F^m)$を各要素が$\mathbb{D}^{1,2}$に属する確率ベクトルとする．
@@ -535,16 +537,16 @@ $K$で有界な$G=(G_1,...,G_m)$が存在し，
 %この事実はLemma \ref{lem1.5.3}と$D$と$\delta$の双対性ら成り立つ結果である．
 
 次の技術的結果を後で使う．
-\begin{lemma}\label{lem1.2.4}
+\begin{lemma}\label{lem1.2.4}%  -------lemma1.2.4
 確率変数の族$\left\{1,W(h)G-D^hG,G\in\mathcal{S}_b,h\in H\right\}$は$L^2(\Omega)$全体の部分集合をなす．
 \end{lemma}
 
-\begin{proposition}\label{prop1.2.5}
+\begin{proposition}\label{prop1.2.5}%  -------proposition1.2.5
 $F$を$\mathbb{D}^{1,1}$に属する確率変数で$DF=0$をみたすものとする．
 このとき，$F=E(F)$が成り立つ．
 \end{proposition}
 
-\begin{proposition}\label{prop1.2.6}
+\begin{proposition}\label{prop1.2.6}%  -------proposition1.2.6
 $A\in\mathcal{F}$とする．
 $A$の定義関数が$\mathbb{D}^{1,1}$に属するための必要十分条件は$P(A)$が$0$または$1$を値にとることである．
 \end{proposition}
@@ -555,6 +557,26 @@ $A$の定義関数が$\mathbb{D}^{1,1}$に属するための必要十分条件�
 \begin{proof}[Lemma \ref{lem1.2.2} の証明]
 \end{proof}
 \begin{proof}[Proposition \ref{prop1.2.1} の証明]
+\end{proof}
+\begin{proof}[Proposition \ref{prop1.2.7} の証明]
+\end{proof}
+\begin{proof}[Lemma \ref{lem1.2.5} の証明]
+\end{proof}
+\begin{proof}[Proposition \ref{prop1.2.8} の証明]
+\end{proof}
+\begin{proof}[Proposition \ref{prop1.2.2} の証明]
+\end{proof}
+\begin{proof}[Proposition \ref{prop1.2.3} の証明]
+\end{proof}
+\begin{proof}[Lemma \ref{lem1.2.3} の証明]
+\end{proof}
+\begin{proof}[Proposition \ref{prop1.2.4} の証明]
+\end{proof}
+\begin{proof}[Proposition \ref{lem1.2.4} の証明]
+\end{proof}
+\begin{proof}[Proposition \ref{prop1.2.5} の証明]
+\end{proof}
+\begin{proof}[Proposition \ref{prop1.2.6} の証明]
 \end{proof}
 
 \begin{thebibliography}{5}
