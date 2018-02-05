@@ -1,0 +1,297 @@
+% --------------------
+% 1. Chaos Expansion
+% --------------------
+\section{Wiener Chaos Expansion}
+この節はNualart\cite{Nualart2006} の本にある以下の Theorem 1.1.2を示すことが目標である．
+基本的で重要な定理であるが，Malliavin解析を展開する上ではこの定理を使うことしかしないため，
+この定理を認めて，次節へ進んでも本論の進行には影響しない．
+説明および証明は基本的にKuo\cite{Kuo2006}に従う．
+
+まず目標となる定理を述べる前に舞台設定を説明する．
+確率空間を$(\Omega, \mathcal{F}, P)$，$B(t)$を$P$に関するBrown運動とする．
+有限区間$[a, b]$に対して，関数$f\in L^2[a, b]$に関するWiener積分
+\eq{I(f)=\int_a^bf(t)dB(t)}
+は$\mathcal{F}$より小さな$\sigma$-加法族である
+\eq{\mathcal{F}^B=\sigma\{B(t);a\le t\le b\}}
+に対して可測となり，一般には$\mathcal{F}\neq\mathcal{F}^B$である．
+以降本節では，確率空間$(\Omega, \mathcal{F}^B, P)$のBrown運動$B(t)$を考える．
+
+また，$\mathcal{F}^B$-可測な$\Omega$上の関数をBrown汎関数と呼ぶが，
+$\Omega$上の$P$-二乗可積分なBrown汎関数で構成されるHilbert空間を$L^2_B(\Omega)$と表す．
+$L^2_B(\Omega)$は$L^2(\Omega)$の部分空間となる．
+
+以上の設定のもと，Nualart\cite{Nualart2006}で述べられている定理は以下のものである．
+\begin{theorem}[Nualart\cite{Nulalart2006} Theorem1.1.2]
+任意の二乗可積分な確率変数$F\in L^2(\Omega, \mathcal{F}^B, P)$は重複確率積分の系列$\{I_n(f_n)\}$で展開することができる:
+\eq{F=\sum_{n=0}^\infty I_n(f_n)}
+ここで，$f_0=E(F)$であり，$I_0$は定数への恒等写像である．
+さらに，$f_n\in L^2(T^n)$は対称で$F$により一意に定めることができる．
+また，重複確率積分はDefinition \ref{def9.6.5}，対称な関数はDefinition \ref{symfunc}で定められるものである．
+\end{theorem}
+
+Kuo\cite{Kuo2006}に従って上の定理を示すにあたって，以下の手順で説明を行う．
+\enums{
+	\item Hilbert空間$L^2_B(\Omega)$が直交部分空間の和で表されることを示し，それらの元から正規直交基底を構成できることを示す．
+	これにより直交補空間の元から構成された正規直交基底によって$\phi\in L^2_B(\Omega)$を表現できることがわかる．(Kuo\cite{Kuo2006} 9.4,9.5)
+	\item 重複Wiener積分を構成し，上記の正規直交基底と関連することを示す．(Kuo\cite{Kuo2006} 9.6,9.7)
+	\item この結果の応用例として，Nualartの本のTheorem1.1.3に示されているMartingale表現定理を示す．(Kuo\cite{Kuo2006} 9.8)
+}
+
+% -------------------------
+% -------subsection1
+\subsection{$L^2_B(\Omega)$の直交補空間への分解と正規直交基底による表現}
+関数$f_1,f_2,...,f_k\in L^2[a,b]$に対するWiener積分の積$I(f_1)I(f_2)\cdots I(f_k)$は$k$次の多項chaos(polynomial chaos)と呼ばれる．
+$J_0=\mathbb{R}$とし，
+定数と$k\le n$次の多項chaosで張られる線形空間として，各$n\ge 1$に対する$J_n$を定める．
+(これは$L^2_B(\Omega)$の閉包となる．)%閉包となるのか閉包にしてJ_nにするのかは示さないとわからない
+すると，
+\eq{J_0\subset J_1\subset\cdots\subset J_n\subset\cdots\subset L^2_B(\Omega)\label{9.4.5}}
+という関係が成り立つ．
+これらの$\{J_n\}$について以下が成り立つ．
+\begin{theorem}\label{thm9.4.5}% -------theorem9.4.5
+和$\bigcup_{n=0}^\infty J_n$は$L^2_B(\Omega)$の中で稠密である．
+\end{theorem}
+
+さらに，$K_0=\mathbb{R}$とし，$J_n$の中の$J_{n-1}$の直交補空間として$K_n$を定める．
+すなわち以下が成り立つように$K_n$を定める．
+\eq{J_n=J_{n-1}\oplus K_n}
+このように$K_n$を構成すると，実Hilbert空間$L^2_B(\Omega)$の直交部分空間の列：
+\eq{K_0,K_1,K_2,...,K_n,...}
+が得られる．
+\begin{definition}
+非負整数$n$に対して，Hilbert空間$K_n$の要素を$n$次のWienerカオス(Kuo\cite{Kuo2006}ではhomogeneous chaoses)と呼ぶ．
+\end{definition}
+$K_n\ge 1$はすべて無限次元の空間であり，次数$1$の斉次chaosは正規分布に従う確率変数である．
+Wienerカオスの構成方法と定理\ref{thm9.4.5}より次の定理が成り立つ．
+\begin{theorem}\label{thm9.4.7}% -------theorem9.4.7
+Hilbert空間$L^2_B(\Omega)$は次数$n\ge0$の斉次chaosの空間$K_n$の直交和となる，すなわち，
+\eq{L^2_B(\Omega)=K_0\oplus K_1\oplus K_2\oplus\cdots\oplus K_n\oplus\cdots}
+が成り立つ．また，関数$\phi\in L^2_B(\Omega)$は一意なWienerカオス展開
+\eq{\phi=\sum_{n=0}^\infty\phi_n}
+を持ち，$L^2_B(\Omega)$のノルム$||\cdot||$について
+\eq{||\phi||^2=\sum_{n=0}^\infty||\phi_n||^2}
+が成り立つ．
+\end{theorem}
+またこれに関連して次が成り立つ．
+この定理は正規直交基底を構成する際に用いられる．
+\begin{theorem}\label{thm9.4.9}% -------theorem9.4.9
+$L^2_B(\Omega)$から$K_n$への直交射影を$P_n$と表す．
+$f_1,...,f_k$を$L^2[a,b]$の非零直交関数とし，$n_1,...,n_k$非負整数とすると，
+\eq{P_n(I(f_1)^{n_1}\cdots I(f_k)^{n_k})=H_{n_1}(I(f_1);||f_1||^2)\cdots H_{n_k}(I(f_k);||f_k||^2)}
+が成り立つ．ただし$n=n_1+\cdots+n_k$である．
+また特に，任意の非零関数$f\in L^2[a,b]$に対して，
+\eq{P_n(I(f)^n)=H_n(I(f);||f||^2)}
+が成り立つ．
+\end{theorem}
+
+Theorem \ref{thm9.4.7} により任意の$f\in L^2_B(\Omega)$を級数で展開することが可能であることがわかった．
+次に展開に用いられる項に正規直交基底を用いることができることを示そう．
+
+まず，$L^2[a,b]$の正規直交基底を$\{e_k\}_{k=1}^\infty$をひとつ固定する．
+有限和をもつ非負整数列$\{n_k\}_{k=1}^\infty$に対して，$\mathcal{H}_{n_1,n_2,...}$を
+\eq{\mathcal{H}_{n_1,n_2,...}
+	&=\prod_k\frac{1}{\sqrt{n_k!}}H_{n_k}(\tilde{e}_k)\\
+	&=\frac{1}{\sqrt{n_1!n_2!\cdots}}H_{n_1}(\tilde{e}_1)H_{n_2}(\tilde{e}_2)\cdots.}
+と定める．ただし，$H_n(x)$はHermite多項式であり，
+\eq{H_n(x)=\sum_{k=0}^{[n/2]}\frac{(-1)^kx^{n-2k}}{k!(n-2k)!2^k}}
+で定められる．
+$H_0(x)=1$であり，$n_k$のうち有限個しか非零にならないため，実際は上式の積は有限項の積である．
+この$\mathcal{H}_{n_1,n_2,...}$について次が成り立つ．
+\begin{theorem}\label{thm9.5.3and9.5.4}% -------theorem9.5.3 and theorem9.5.4
+任意の$n\ge1$に対して，関数の集合
+\eq{\left\{\mathcal{H}_{n_1,n_2,...};n_1+n_2+\cdots=n\right\}}
+は$K_n$の部分集合であり，次をみたす．
+\enums{
+	\item この集合で張られる線形空間は$K_n$の中で稠密である．
+	\item $K_n$の正規直交基底をなす．
+}
+\end{theorem}
+
+以上を定理の形でまとめると次のとおりとなる．
+\begin{theorem}\label{thm9.5.7}% -------theorem9.5.7
+関数の集合
+\eq{\left\{\mathcal{H}_{n_1,n_2,...};n_1+n_2+\cdots=n,n=0,1,2,...\right\}}
+はHilbert空間$L^2_B(\Omega)$の正規直交基底をなす．
+任意の$\phi\in L^2_B(\Omega)$は級数：
+\eq{\phi=\sum_{n=0}^\infty\sum_{n_1+n_2+\cdots=n}a_{n_1,n_2,...}\mathcal{H}_{n_1,n_2,...}}
+で一意に展開される．ここで，$a_{n_1,n_2,...}=E(\phi\mathcal{H}_{n_1,n_2,...})=\int_\Omega\phi\mathcal{H}_{n_1,n_2,...}dP$である．
+\end{theorem}
+Nualartの本では$\mathcal{H}_{n_1,n_2,...}$の部分が多重確率積分となっている．
+実際，これらの項は重複Wiener積分と関連づけられることを次の節で示す．
+それが示されれば，Nualartの本の定理の証明が完了する．
+
+% -------------------------
+% -------subsection2
+\subsection{正規直交基底の重複Wiener積分による表現}
+この節では重複Wiener積分を定め，その重複Wiener積分がHermite多項式およびWienerカオスと関連することを示す．
+
+表記を簡単にするため$T=[a,b]$とすれば，本節の最初の目標は$f\in L^2(T^n)$に対して
+\eq{\int_{T^n}f(t_1,t_2,...,t_n)dB(t_1)dB(t_2)\cdots dB(t_n)}
+を定めることである．
+集合$D$を
+\eq{D=\left\{(t_1,t_2,...,t_n)\in T^n;\exists i\neq j\text{ such that }t_i=t_j\right\}}
+と定め，$T^n$の対角集合と呼ぶ．
+$T^n$の部分集合で$[t_1^{(1)},t_1^{(2)})\times[t_2^{(1)},t_2^{(2)})\times\cdots\times[t_n^{(1)},t_n^{(2)})$の形をとる集合を長方形と呼ぶ．
+
+% ----
+\subsubsection*{Step 1. 対角なし階段関数(Off-diagonal step functions)}
+Step 1.では対角なし階段関数とそれに対する確率積分を定める．
+また，関数の対称化を導入し，対角なし階段関数に関する確率積分について，非積分関数の対称化によって導かれる重要な性質を示す．
+
+$T^n$上の階段関数とは
+\eq{f=\sum_{1\le i_1,i_2,...,i_n\le k}a_{i_1,i_2,...,i_n}1_{[\tau_{i_1-1},\tau_{i_1})\times[\tau_{i_2-1},\tau_{i_2})\times\cdots\times[\tau_{i_n-1},\tau_{i_n})}}
+と表される関数である．ただし，$a=\tau_0<\tau_1<\tau_2<\cdots<\tau_k=b$とする．
+また，対角なし階段関数を階段関数のうち
+\eq{a_{i_1,i_2,...,i_n}=0,i_p=i_q\text{ for some }p\neq q}
+をみたすものとする．すなわち，階段関数で集合$D$上では$0$となる関数を対角なし階段関数とする．
+また，対角なし階段関数の集合はベクトル空間をなす．
+
+対角なし階段関数に対する確率積分を，異なる次数の係数が$0$となるように
+\eq{I_n(f)=\sum_{1\le i_1,i_2,...,i_n\le k}a_{i_1,i_2,...,i_n}\xi_{i_1}\xi_{i_2}\cdots\xi_{i_n}}
+で定める．ここで，$\xi_{i_p}=B(\tau_{i_p})-B(\tau_{i_p-1}),1\le p\le n$である．
+$I_n(f)$の値は$f$の表現によらないという意味でwell-difinedであり，
+写像$I_n(f)$は対角なし階段関数のベクトル空間上で線形である．
+
+また，関数$f(t_1,...,t_n)$の対称化$\hat{f}(t_1,...,t_n)$を
+\eq{\hat{f}(t_1,t_2,...,t_n)=\frac{1}{n!}\sum_\sigma f(t_{\sigma(1)},t_{\sigma(2)},...,t_{\sigma(n)})\label{symfunc}}
+で定める．ただし，右辺の和は$\{1,2,...,n\}$の順列$\sigma$のすべてに対してとる．
+Lebesgue測度は対称であることから，任意の順列$\sigma$に対して，
+\eq{\int_{T^n}|f(t_{\sigma(1)},...,t_{\sigma(n)})|^2dt_1\cdots dt_n=\int_{T^n}|f(t_1,...,t_n)|^2dt_1\cdots dt_n}
+が成り立つ．したがって，三角不等式より
+\eq{||\hat{f}||\le\frac{1}{n!}\sum_\sigma||f||=\frac{1}{n!}n!||f||=||f||}
+が成り立つので，$||\hat{f}||\le||f||$が得られる．
+また，$f$が対角なし階段関数ならば，$\hat{f}$も対角なし階段関数である．
+対角なし階段関数に関わる確率積分について以下が成り立つ．
+
+\begin{lemma}\label{lem9.6.2and9.6.3}%  -------lemma9.6.2 and lemma9.6.3
+$f$が対角なし階段関数ならば，$f$に対する確率積分$I_n(f)$について次が成り立つ．
+\enums{
+	\item $I_n(f)=I_n(\hat{f})$
+	\item $E\left(I_n(f)\right)=0$
+	\item 次が成り立つ．
+		\eq{E\left[I_n(f)^2\right]=n!\int_{T^n}|\hat{f}(t_1,...,t_n)|^2dt_1\cdots dt_n}
+}
+\end{lemma}
+
+% ----
+\subsubsection*{Step 2. 対角なし階段関数による近似}
+集合$D$は$D=\cup_{i\neq j}[\{t_i=t_j\}\cap D]$と書き直すことができる．
+これは，集合$D$は$(n-1)$次元超平面の共通部分に関する有限和で表されるということで，
+すなわち集合$D$のLebesgue測度は$0$であるということである．
+これから次の補題を示すことができる
+\begin{lemma}\label{lem9.6.4}%  -------lemma9.6.4
+$f\in L^2(T^n)$に対して，対角なし階段関数$\{f_k\}$が存在して，
+\eq{\lim_{k\rightarrow\infty}\int_{T^n}\left|f(t_1,...,t_n)-f_k(t_1,...,t_n)\right|^2dt_1\cdots dt_n=0}
+がなりたつ．
+\end{lemma}
+この補題から，$f\in L^2(T^n)$に収束する対角なし階段関数の列$\{f_k\}$，$\{f_l\}$がとれ，
+$I_n$の線形性とLemma \ref{lem9.6.3} から，
+\eq{E\left[\left(I_n(f_k)-I_n(f_l)\right)^2\right]=n!||\hat{f_k}-\hat{f_l}||^2\le n!||f_k-f_l||^2\rightarrow0\;(\text{as }k,l\rightarrow\infty)}
+が得られるので，$\{I_n(f_k)\}_{k=1}^\infty$は$L^2(\Omega)$でCauchy列をなす．
+したがって，
+\eq{I_n(f)=\lim_{k\rightarrow\infty}I_n(f_k)\text{ in }L^2(\Omega)\label{LimitMultiInt}}
+として，$f\in L^2(T^n)$に対する確率積分を定めれば，$\{f_k\}$のとり方に依存しないという意味でwell-definedである．
+\begin{definition}\label{def9.6.5}
+$f\in L^2(T^n)$に対して，(\ref{LimitMultiInt})で定められる極限$I_n(f)$を$f$の重複Wiener-It\^o積分と呼び
+\eq{\int_{T^n}f(t_1,...,t_n)dB(t_1)\cdots dB(t_n)}
+と表す．
+\end{definition}
+Lemma \ref{lem9.6.4} を用いれば Lemma \ref{lem9.6.2and9.6.3}の結果は$f\in L^2(T^n)$に対して拡張可能である．
+これを以下にまとめる．
+\begin{theorem}\label{9.6.6}%  -------theorem9.6.6
+$f\in L^2(T^n),n\ge1$とするとき次が成り立つ．
+\enums{
+	\item $I_n(f)=I_n(\hat{f})$．$\hat{f}$は$f$の対称化である．
+	\item $E\left[I_n(f)\right]=0$．
+	\item $E\left[I_n(f)^2\right]=n!||\hat{f}||^2$．$||\cdot||$は$L^2(T^n)$のノルムである．}
+\end{theorem}
+
+\begin{theorem}\label{thm9.6.7}%  -------theorem9.6.7
+$f\in L^2(T^n), n\ge2$とするとき，次が成り立つ．
+\eq{\int_{T^n}&f(t_1,...,t_{n-1},t_n)dB(t_1)\cdots dB(t_{n-1})dB(t_n)\\
+	&=n!\int_a^b\cdots\int_a^{t_{n-2}}\left[\int_a^{t_{n-1}}\hat{f}(t_1,...,t_{n-1},t_n)dB(t_n)\right]dB(t_{n-1})\cdots dB(t_1).}
+ただし，$\hat{f}$は$f$の対称化である．
+\end{theorem}
+
+% ----
+\subsubsection*{Step 3. 重複Wiener-It\^o積分と斉次chaosの対応づけ}
+\begin{definition}%  -------definition9.6.8
+$g_1,...,g_n\in L^2[a,b]$のとき，
+\eq{g_1\otimes\cdots\otimes g_n(t_1,...,t_n)=g_1(t_1)\cdots g_n(t_n)}
+でtensor積$g_1\otimes\cdots\otimes g_n(t_1,...,t_n)$を定める．
+また，tensor積$f_1^{\otimes n_1}\otimes\cdots\otimes f_k^{\otimes n_k}$は$f_i$が$n_i$回繰り返されていることを意味する．
+\end{definition}
+
+% こめんとしる
+
+\begin{theorem}\label{thm9.6.9}%  -------theorem9.6.9
+$f_1,f_2,...,f_k$を$L^2[a,b]$の非負直交関数とし，$n_1,n_2,...,n_k$を正整数とする．
+このとき，
+\eq{I_n\left(f_1^{\otimes n_1}\otimes\cdots\otimes f_k^{\otimes n_k}\right)
+	=\prod_{j=1}^kH_{n_j}\left(I(f_j);||f_j||^2\right)}
+が成り立つ．ただし，$n=n_1+n_2\cdots n_k$であり，$H_{n}(x;\rho)$は
+\eq{H_n(x;\rho)=\sum_{k=0}^{[n/2]}\left(\begin{matrix}n\\2k\end{matrix}\right)(2k-1)!!(-\rho)^kx^{n-2k}}
+で定められるHermite多項式である．特に任意の非負関数$f\in L^2[a,b]$に対して
+\eq{I_n(f^{\otimes n})=H_n\left(I(f);||f||^2\right)}
+が成り立つ．
+\end{theorem}
+
+$I_n(f)$の性質として，最後にHilbert空間$L^2_B(\Omega)$上における$I_n(f)$と$I_m(g),n\neq m$の直交性を示す．
+\begin{theorem}\label{thm9.6.10}%  -------theorem9.6.10
+任意の$f\in L^2(T^n),g\in L^2(T^m)$と$n\neq m$に対して，$E\left(I_n(f)I_m(g)\right)=0$が成り立つ．
+\end{theorem}
+
+実は$n$次の斉次chaosは，$n$重重複Wiener-It\^o積分と一致する．
+この事実を次で示す．
+\begin{theorem}\label{thm9.7.1}%  -------theorem9.7.1
+$f\in L^2(T^n),n\ge1$ならば，$I_n(f)\in K_n$である．
+逆に，$\phi\in K_n,n\ge1$ならば，関数$f\in L^2_\mathrm{sym}(T^n)$が存在して，$\phi=I_n(f)$をみたす．
+ただし，$L^2_\mathrm{sym}(T^n)$は$T^n$上の対称な二乗可積分関数からなる実Hilbert空間を表す．
+\end{theorem}
+
+次の定理はTheorem \ref{thm9.4.7}とTheorem \ref{thm9.7.1}から得られる．
+\begin{theorem}[Wiener-It\^o]\label{thm9.7.3}%  -------theorem9.7.3
+空間$L^2_B(\Omega)$は以下の直交直和に分解できる．
+\eq{L^2_B(\Omega)=K_0\oplus K_1\oplus K_2\oplus\cdots\oplus K_n\oplus\cdots}
+ここで，$K_n$は$n$重重複Wiener-It\^o積分からなる．
+また，任意の関数$\phi\in L^2_B(\omega)$は
+\eq{\phi=\sum_{n=0}^\infty I_n(f_n), f\in L^2_\mathrm{sym}(T^n)}
+で一意に展開することができ，
+\eq{||\phi||^2=\sum_{n=0}^\infty n!||f_n||^2}
+が成り立つ．
+\end{theorem}
+
+% -------------------------
+% -------subsection3
+\subsection{命題の証明}
+\begin{proof}[Theorem \ref{thm9.4.5} の証明]
+設定
+\items{
+	\item $\{e_n\}$は$L^2[a,b]$の正規直交基底
+	\item 
+}
+目標
+
+証明の手順
+\enums{
+	\item $E\left(I(e_1)^{k_1}\cdots I(e_n)^{k_n}E(\phi|\mathcal{G}_n)\right)=0$だよ．
+	\item 各$n$で$\theta_n=0$
+	\item $E(\phi|\mathcal{G}_n)\rightarrow\phi$かつ各$n$で$E(\phi|\mathcal{G}_n)=0$なので$E(\phi|\mathcal{G}_n)\rightarrow0$
+}
+
+\end{proof}
+\begin{proof}[Theorem \ref{thm9.4.9} の証明]
+\end{proof}
+\begin{proof}[Theorem \ref{thm9.5.3and9.5.4} の証明]
+\end{proof}
+\begin{proof}[Lemma \ref{lem9.6.2and9.6.3} の証明]
+\end{proof}\begin{proof}[Lemma \ref{lem9.6.4} の証明]
+\end{proof}
+\begin{proof}[Theorem \ref{thm9.6.9} の証明]
+\end{proof}
+\begin{proof}[Theorem \ref{thm9.6.10} の証明]
+\end{proof}
+\begin{proof}[Theorem \ref{thm9.7.1} の証明]
+\end{proof}
+\begin{proof}[Theorem \ref{thm9.7.3} の証明]
+\end{proof}
