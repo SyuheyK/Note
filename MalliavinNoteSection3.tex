@@ -1,0 +1,164 @@
+% --------------------
+% 3. The Divergence Operator
+% --------------------
+\section{The Divergence Operator}
+\begin{definition}% -------definition1.3.1
+微分作用素$D$の随伴作用素を$\delta$と表す．すなわち，
+$L^2(\Omega;H)$から$L^2(\Omega)$への非有界な作用素で次の$2$条件をみたすものを$\delta$と表す．
+\enums{
+	\item 
+		$\text{Dom}\delta$で表される$\delta$の定義域は，
+		$H$-値二乗可積分な確率変数$u\in L^2(\Omega;H)$で，任意の$F\in\mathbb{D}^{1,2}$に対して
+		\eq{\left|E\left(\langle DF,u\rangle_H\right)\right|\le c||F||_2\label{Div1}}
+		をみたすものである．ただし，$c$は$u$に依存する定数とする．
+	\item 
+		$u$が$\text{Dom}\delta$に属するならば，$\delta(u)$は，任意の$F\in\mathbb{D}^{1,2}$に対して
+		\eq{E\left(F\delta(u)\right)=E\left(\langle DF,u\rangle_H\right)\label{Div2}}
+		で特徴付けられる$L^2(\Omega)$の要素である．}
+この作用素$\delta$はdivergence operaterと呼ばれ，
+$D$は非有界で閉じた作用素であったので，$\delta$も随伴作用素として閉じている．
+
+% ------------------------
+% The Divergence operatorの性質
+\subsection{The Divergence operatorの性質}
+% どこまで書くか考え中
+% とりあえずprop1.3.1，prop1.3.2，prop1.3.4(prop1.3.3)は必要
+divergence operator の簡単な性質として，
+(\ref{Div2})で$F=1$とすれば，$u\in\text{Dom}\delta$に対して$E\delta(u)=0$となり，
+$\text{Dom}\delta$内で$\delta$は線形となることが言える．
+また，
+\eq{u=\sum^n_{j=1}F_jh_j\label{RVform2}}
+で表される$u\in\text{Dom}\delta$内のクラスを$\mathcal{S}_H$と表す．
+ただし，$F_j$は滑らかな確率変数，$h_j$は$H$の要素とする．
+Lemma\ref{lem1.2.2}の部分積分の公式から次がわかる．
+\items{
+	\item $u\in\mathcal{S}_H$は$\delta$の定義域に属する．
+	\item $\delta(u)$に対して次が成り立つ．
+		\eq{\delta(u)=\sum^n_{j=1}F_jW(h_j)-\sum^n_{j=1}\langle DF_j,h_j\rangle_H\label{Divexp1}}
+}
+
+次の命題で，divergence の定義域における$H$-値確率変数の大きなクラスが得られる．
+\begin{proposition}\label{prop1.3.1}
+$\mathbb{D}^{1,2}$は$\delta$の定義域に含まれる．
+また，$u,v\in\mathbb{D}^{1,2}$ならば次が成り立つ
+\footnote{$u\in\mathbb{D}^{1,2}(H)$ならば$Du$はHilbert空間$H\otimes H$に値をとる二乗可積分な確率変数となることに注意．
+	ただし$H\otimes H$は$H$から$H$へのHilbrt-Schmit作用素の空間として特徴付けされる．}．
+\eq{E\delta(u)\delta(v)=E\langle u,v\rangle_H+E\mathrm{Tr}(Du\circ Dv).\label{CrossDiv}}
+\end{proposition}
+
+また次のderivativeとdivergenceの交換則は，
+Proposition \ref{prop1.3.1} の証明等で用いられ，非常に重要である：
+$u\in\mathcal{S}_H$，$F\in\mathcal{S}$，$h\in H$に対して，
+\eq{D^h(\delta(u))=\langle u,h\rangle_H + \delta(D^hu)\label{DerDiv}}
+これはいわゆるHeisenbergの交換則で，ブラケット表記すれば$\left[D^h,\delta\right]u=\langle u,f\rangle_H$と表せる．
+この交換則をより一般の確率変数に対して適用可能であることを示すのが次のProposition \ref{prop1.3.2}である．
+証明でLemma \ref{lem1.3.1}を使うので，そのステートメントに続けてProposition \ref{prop1.3.2}を述べる．
+\begin{lemma}\label{lem1.3.1}
+$G$を二乗可積分な確率変数とする．
+$Y\in L^2(\Omega)$が存在して，任意の$F\in\mathbb{D}^{1,2}$に対して，
+\eq{E\left(G\delta(hF)\right)=E(YF)}
+をみたすならば，$G\in\mathbb{D}^{1,2}$であり，$D^hG=Y$がなりたつ．
+\end{lemma}
+\begin{proposition}\label{prop1.3.2}
+$u\in\mathbb{D}^{1,2}(H)$とし，$D^hu$はdivergencenの定義域に属するとする．
+このとき，$\delta(u)\in\mathbb{D}^{h,2}$であり，(\ref{DerDiv})がなりたつ．
+\end{proposition}
+
+以降は便利な命題の列挙．
+次の命題を使うとdivergenceからscalar確率変数を取り出すことができる．
+\begin{proposition}\label{prop1.3.3}
+$F\in\mathbb{D}^{1,2}$とし，$u$は$\delta$の定義域に含まれ$Fu\in L^2(\Omega;H)$をみたすものとする．
+このとき，$Fu$は$\delta$の定義域に属し，
+次式の右辺が二乗可積分という条件のもとで次式が成り立つ．
+\eq{\delta(Fu)=F\delta(u)-\langle DF,u\rangle_H.}
+\end{proposition}
+次の命題はProposition \ref{prop1.3.3}の$u$を確定的な$h\in H$に替えた別バージョンである．
+このケースでは$F$に対しては$h$方向の微分可能性のみ課せば十分であることに注意しよう．
+\begin{proposition}\label{prop1.3.4}
+$h\in H$，$F\in\mathbb{D}^{h,2}$のとき，$Fh$は$\delta$の定義域に含まれ，次が成り立つ．
+\eq{\delta(Fu)=FW(u)-D^hF.}
+\end{proposition}
+
+% あとprop1.3.5，prop1.3.6が残ってる．
+
+% ------------------------
+% Skorohod積分の定義
+\subsection{The Skorohod integral}
+Hilbert空間$H=L^2(T,\mathcal{B},\mu)$に対象を絞ると，
+$\text{Dom}\delta\subset L^2(T\times\Omega)$の要素は二乗可積分な確率過程となり，
+$u\in\text{Dom}\delta$に対するdivergence$\delta(u)$は過程$u$のSkorohod積分と呼ばれ，
+\eq{\delta(u)=\int_Tu_tdW_t}
+と表される．
+この項では，Skorohod積分の性質について考察する．
+ただし$\mu$は可測空間$(T,\mathcal{B})$上の$\sigma$-有限な測度である．
+
+これまでの議論で対象にしている確率変数$u\in L^2(T\times\Omega)$は，対称な関数$f_n\in L^2(T^{n+1}),n\ge1$を用いて
+\eq{u(t)=\sum_{n=0}^\infty I_n(f_n(\cdot,t)\label{RVexp}}
+とWienerカオス展開された．ただし$u$は
+\eq{E\left(\int_Tu^2(t)\mu(dt)\right)=\sum_{n=0}^\infty n!||f_n||^2_{L^2(T^{n+1})}}
+をみたす．
+この確率変数に対するSkorohod積分$\delta(u)$の結果として次が成り立つ．
+\begin{proposition}\label{prop1.3.7}% -------proposition1.3.7
+$u\in L^2(T\times\Omega)$が(\ref{RVexp})で展開されるとき，
+$u$が$\text{Dom}\delta$に属するための必要十分条件は，
+\eq{\delta(u)=\sum_{n=0}^\infty I_{n+1}(\tilde{f_n})\label{Divexp2}}
+が$\L^2(\Omega)$-収束することである．
+\end{proposition}
+この命題の注意点は$n+1$次元の積分核$\tilde{f_n}$は，最初の$n$変数に関して対称であって，全ての変数について対称ではないということである．
+一方で，全ての変数について対称な$n+1$次元の関数$\tilde{f_n}(t_1,...,t_n,t)$は
+\eq{
+	\tilde{f_n}(t_1,...,t_n,t)
+		&=\frac{1}{n+1}\left\{f_n(t_1,...,t_n,t)+\sum_{i=1}^nf_n(t_1,...,t_{i-1},t,t_{i+1},...,t_n,t_i)\right\}}
+で表される．
+$I_{n+1}(f_n)=I_{n+1}(\tilde{f_n})$より，対称化を使わずに(\ref{Divexp2})を書き直すこともできるが，
+確率積分の$L^2$-ノルムを計算する際に対称化が必要になってくる．
+
+Proposition\ref{prop1.3.7}より，
+$L^2(T\times\Omega)$の部分空間で条件：
+\eq{E\left(\delta^2(u)\right)=\sum_{n=0}^\infty(n+1)!||f||^2_{L^2(T^{n+1})}<\infty}
+をみたす確率過程の集合は，
+Skorokhod積分可能な確率過程のクラス$\text{Dom}\delta$と一致することがわかる．
+
+この下に書いてあることを列挙
+\items{
+	\item $\mathbb{D}^{1,2}(L^2(T))$を$\mathbb{L}^{1,2}$と書く．
+	\item $\mathbb{L}^{1,2}$は，ほとんど全ての$t$に対して$u(t)\in\mathbb{D}^{1,2}$となり，
+		\eq{E\int_T\int_T(D_su_t)^2d\mu(s)d\mu(t)}をみたす2-パラメータ過程$D_su_t$の可測な変形が存在するような，
+		$u\in L^2(T\times\Omega)$のクラスと一致する．
+	\item Proposition \ref{prop1.3.1}より，$\mathbb{L}^{1,2}$は$\text{Dom}\delta$の部分空間となることがわかる．
+	\item $\mathbb{L}^{1,2}$は次で定めるノルムによりHilbert空間となる：
+		\eq{||u||^2_{1,2,L^2(T)}=||u||^2_{1,2,L^2(T\times\Omega)}+||Du||^2_{1,2,L^2(T^2\times\Omega)}}
+	\item $\mathbb{L}^{1,2}$は$L^2(T;\mathbb{D}^{1,2})$と位相同型となる．
+	\item $u$と$v$がともに$\mathbb{L}^{1,2}$に属するとき，(\ref{CrossDiv})は次のように書き換えられる．
+		\eq{E\delta(u)\delta(v)=\int_TE(u_tv_t)\mu(dt)+int_T\int_TE(D_su_tD_tv_s)\mu(ds)\mu(dt).}
+}
+
+% ------------------------
+% ito Integral as Skorohod Integral
+\subsection{The Skorohod integralの特殊ケースとしてのThe Ito Integral}
+
+% ------------------------
+% 命題の証明
+\subsection{命題の証明}
+\begin{proof}[\ref{DerDiv}の証明]
+$u$が(\ref{RVform2}) で表されるとき，(\ref{Divexp1})より
+\eq{D^h(\delta(u))
+		&=\sum_{j=1}^nF_jD^hW+\sum_{j=1}^nD^hF_jW(h_j)-\sum_{j=1}^nD^h\left(\langle DF_j,h_j\rangle_H\right)\\
+		&=\sum_{j=1}^nF_j\langle h,h_j\rangle_H+\sum_{j=1}^nD^hF_jW(h_j)-\sum_{j=1}^n\langle D\left(D^hF_j\right),h_j\rangle_H\quad\text{(\ref{Dh})より}\\
+		&=\langle u,h\rangle_H+\delta(D^hu).
+}となり，題意の式を得る．
+\end{proof}
+\begin{proof}[Proposition \ref{prop1.3.1} の証明]
+\end{proof}
+\begin{proof}[Lemma \ref{lem1.3.1} の証明]
+\end{proof}
+\begin{proof}[Proposition \ref{prop1.3.2} の証明]
+\end{proof}
+\begin{proof}[Proposition \ref{prop1.3.3} の証明]
+\end{proof}
+\begin{proof}[Proposition \ref{prop1.3.4} の証明]
+\end{proof}
+
+
+
+\end{definition}
