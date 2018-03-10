@@ -15,26 +15,26 @@
 % 微分作用素の定義
 \subsection{微分作用素の定義}
 % 微分作用素自体の定義
-Brown運動$W(h)$は確率空間$(\Omega,\mathcal{F}^B,P)$上で定められ，その添字全体の集合をHilbert空間$H$とする．
+Brown運動$W(h)$は確率空間$(\Omega,\mathcal{F}^B,P)$上で定められ，$H$をHilbert空間とする．
 ここでは
 \eq{F=f(W(h_1),...,W(h_n))\label{RVform}}
 で表される確率変数で$f$は適当に微分が滑らかである関数とする．
 $f$にどの程度の滑らかさが必要であるかは微分作用素の定義域を論じる際に補足する．
 この$f$に対する偏微分の表記については$\partial_if=\frac{\partial f}{\partial x_i}$および$\nabla f=(\partial_1f,...,\partial_nf)$を用いる．
 まず，
-添字集合を値にとる確率変数に対する微分を次のように定める．
+$H$に値をとる確率変数に対する微分を次のように定める．
 \begin{definition}\label{def1.2.1}%  -------definition1.2.1
 (\ref{RVform})の形で表される滑らかな確率変数$F$の微分$DF$を，次で表される$H$-値確率変数で定める．
 \eq{DF=\sum_{i=1}^n\partial_if(W(h_1),...,W(h_n))h_i.}
 \end{definition}
 % ↓よくわからない，不要なら消す
-$DF$を方向微分と解するには，任意の$h\in H$に対して，
-\eq{\langle DF,h\rangle_H
+%$DF$を方向微分と解するには，任意の$h\in H$に対して，
+%\eq{\langle DF,h\rangle_H
 %	&=\sum_{i=1}^n\partial_i\left\langle f(W(h_1),...,W(h_n))h_i,h\right\rangle_H\\
 %	&=\sum_{i=1}^n\langle\lim_{\epsilon\rightarrow0}\frac{1}{\epsilon}f(W(h_1)+\epsilon,...,W(h_n))h_i,h\rangle_H\\}
 % ?解けない？
-	&=\lim_{\epsilon\rightarrow0}\frac{1}{\epsilon}\left[f(W(h_1)+\epsilon\left\langle h_1,h\right\rangle_H,...,W(h_n)+\epsilon\left\langle h_n,h\right\rangle_H)-f(W(h_1),...,W(h_n))\right].}
-が得られることに注意する．ラフに言うと，$\langle DF,h\rangle_H$は，シフトした過程$\{W(g)+\epsilon\langle g,h\rangle_H,g\in H\}$と確率変数$F$を合わせた$\epsilon=0$における微分であると解することができる．
+%	&=\lim_{\epsilon\rightarrow0}\frac{1}{\epsilon}\left[f(W(h_1)+\epsilon\left\langle h_1,h\right\rangle_H,...,W(h_n)+\epsilon\left\langle h_n,h\right\rangle_H)-f(W(h_1),...,W(h_n))\right].}
+%が得られることに注意する．ラフに言うと，$\langle DF,h\rangle_H$は，シフトした過程$\{W(g)+\epsilon\langle g,h\rangle_H,g\in H\}$と確率変数$F$を合わせた$\epsilon=0$における微分であると解することができる．
 
 次の結果はいわゆる部分積分の公式である．
 \begin{lemma}\label{lem1.2.1}%  -------lemma1.2.1
@@ -52,12 +52,12 @@ $F,G$を滑らかな確率変数，$h\in H$とするとき，次が成り立つ�
 \end{proposition}
 
 % 定義域
-\subsubsection{微分作用素の定義域}
+\subsubsection{微分作用素の定義域と高階微分}
 微分作用素$D$の定義域を考えるために以下の関数空間を定めておく．
-$C_p^\infty(\mathbb{R}^n)$を，無限回連続微分可能な関数$f:\mathbb{R}^n\rightarrow\mathbb{R}$でその偏微分が$p$次多項式のオーダーで増大するものの集合とし，
-同様に偏微分が有限である関数$f$の集合を$C^\infty_b(\mathbb{R}^n)$，コンパクトな台を持つ関数$f$の集合を$C^\infty_0(\mathbb{R}^n)$と表す．
+$C_p^\infty(\mathbb{R}^n)$を，無限回連続微分可能な関数$f:\mathbb{R}^n\rightarrow\mathbb{R}$でその偏微分が多項式のオーダーで増大するものの集合とし，
+同様に$f$とそのすべての偏微分が有限である関数$f$の集合を$C^\infty_b(\mathbb{R}^n)$，コンパクトな台を持つ関数$f$の集合を$C^\infty_0(\mathbb{R}^n)$と表す．
 
-また(\ref{RVform})で表される確率変数で，
+また(\ref{RVform})で表される滑らかな確率変数で，
 $f$が$C_p^\infty(\mathbb{R}^n)$に属するものの集合を$\mathcal{S}$と表す．
 同様に，
 $f$が$C_b^\infty(\mathbb{R}^n)$に含まれるものの集合を$\mathcal{S}_b$，
@@ -240,8 +240,24 @@ $A$の定義関数が$\mathbb{D}^{1,1}$に属するための必要十分条件�
 
 \subsection{命題の証明}
 \begin{proof}[Lemma \ref{lem1.2.1} の証明]
+
+正規化して考えて、$||h||=1$としてよい。さらに、$h=e_1$ととった$H$の正規直交な元の組$e_1,...,e_n$があって
+\eq{F=f(W(e_1),...,W(e_n))}
+と書けるとしてよい。$\phi$を標準正規分布密度とすると
+\eq{	E(\langle DF,h\rangle_H)
+			&=E(\langle DF,e_1\rangle_H)\\
+			&=E\left(\left\langle \sum\partial_if(W(e_1),....,W(e_n))e_i, e_1\right\rangle_H\right)\\
+			&=E\left(\sum\partial_if(W(e_1),....,W(e_n))\langle e_i, e_1\rangle_H\right)\\
+			&=E\left(\partial_1f(W(e_1),....,W(e_n))\right)\\
+			&=\int_{\mathbb{R}^n}\partial_1f(x_1,....,x_n)\phi(\mathbf{x})\mathbf{x}\\
+			&=\int_{\mathbb{R}^n}f(x_1,....,x_n)x_1\phi(\mathbf{x})d\mathbf{x}\\
+			&=E(FW(e_1))=E(FW(h))}
 \end{proof}
 \begin{proof}[Lemma \ref{lem1.2.2} の証明]
+\eq{E(\langle D(FG), h\rangle_H)&=E(G\langle DF,h\rangle_H)+E(F\langle DG,h\rangle_H)}
+と、上の式から
+\eq{E(\langle D(FG), h\rangle_H)&= E(FGW(h))}
+より成り立つ．
 \end{proof}
 \begin{proof}[Proposition \ref{prop1.2.1} の証明]
 \end{proof}

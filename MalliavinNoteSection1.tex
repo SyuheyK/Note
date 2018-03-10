@@ -61,10 +61,10 @@ $J_0=\mathbb{R}$とし，
 \begin{definition}
 非負整数$n$に対して，Hilbert空間$K_n$の要素を$n$次のWienerカオス(Kuo\cite{Kuo2006}ではhomogeneous chaoses)と呼ぶ．
 \end{definition}
-$K_n\ge 1$はすべて無限次元の空間であり，次数$1$の斉次chaosは正規分布に従う確率変数である．
+$K_n\ge 1$はすべて無限次元の空間であり，次数$1$のWienerカオスは正規分布に従う確率変数である．
 Wienerカオスの構成方法と定理\ref{thm9.4.5}より次の定理が成り立つ．
 \begin{theorem}\label{thm9.4.7}% -------theorem9.4.7
-Hilbert空間$L^2_B(\Omega)$は次数$n\ge0$の斉次chaosの空間$K_n$の直交和となる，すなわち，
+Hilbert空間$L^2_B(\Omega)$は次数$n\ge0$のWienerカオスの空間$K_n$の直交和となる，すなわち，
 \eq{L^2_B(\Omega)=K_0\oplus K_1\oplus K_2\oplus\cdots\oplus K_n\oplus\cdots}
 が成り立つ．また，関数$\phi\in L^2_B(\Omega)$は一意なWienerカオス展開
 \eq{\phi=\sum_{n=0}^\infty\phi_n}
@@ -229,7 +229,7 @@ $f\in L^2(T^n), n\ge2$とするとき，次が成り立つ．
 \end{theorem}
 
 % ----
-\subsubsection*{Step 3. 重複Wiener-It\^o積分と斉次chaosの対応づけ}
+\subsubsection*{Step 3. 重複Wiener-It\^o積分とWienerカオスの対応づけ}
 \begin{definition}%  -------definition9.6.8
 $g_1,...,g_n\in L^2[a,b]$のとき，
 \eq{g_1\otimes\cdots\otimes g_n(t_1,...,t_n)=g_1(t_1)\cdots g_n(t_n)}
@@ -256,11 +256,11 @@ $I_n(f)$の性質として，最後にHilbert空間$L^2_B(\Omega)$上におけ�
 任意の$f\in L^2(T^n),g\in L^2(T^m)$と$n\neq m$に対して，$E\left(I_n(f)I_m(g)\right)=0$が成り立つ．
 \end{theorem}
 
-実は$n$次の斉次chaosは，$n$重重複Wiener-It\^o積分と一致する．
+実は$n$次のWienerカオスは，$n$重重複Wiener-It\^o積分と一致する．
 この事実を次で示す．
 \begin{theorem}\label{thm9.7.1}%  -------theorem9.7.1
 $f\in L^2(T^n),n\ge1$ならば，$I_n(f)\in K_n$である．
-逆に，$\phi\in K_n,n\ge1$ならば，関数$f\in L^2_\mathrm{sym}(T^n)$が存在して，$\phi=I_n(f)$をみたす．
+また，$\phi\in K_n,n\ge1$ならば，関数$f\in L^2_\mathrm{sym}(T^n)$が存在して，$\phi=I_n(f)$をみたす．
 ただし，$L^2_\mathrm{sym}(T^n)$は$T^n$上の対称な二乗可積分関数からなる実Hilbert空間を表す．
 \end{theorem}
 
