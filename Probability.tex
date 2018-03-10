@@ -28,6 +28,69 @@
 \newcommand{\dcap}[1][]{\operatorname*{\cap_\mathnormal{#1}}}
 %
 \begin{document}
+\section{収束定理}
+単調収束定理とFatouの補題，Lebesgueの収束定理のステートメントその証明を述べます．
+単調収束定理あるいはFatouの補題のいずれかを証明できれば，他の定理はそれらから示すことができますが，
+最初にこれら$2$つの命題のいずれかを示すのに骨が折れます．
+収束定理の理解を深めるためには，以下のアプローチで命題間の関係を知ることが近道です．
+\items{
+	\item 単調収束定理を認めて，Fatouの補題・Lebesgueの収束定理を示す．
+	\item Fatouの補題を認めて，単調収束定理・Lebesgueの収束定理を示す．}
+以下では，まず命題のステートメントを述べた後，各々の証明を述べます．
+以下命題はいずれも測度空間$(X,\mathcal{F},\mu)$上で考えるものとします．
+
+\begin{theorem}[単調収束定理]
+$0\le f_n\le f_{n+1}\text{ a.s.}, n=1,2,...$かつ$f_n\rightarrow f,n\text{ a.s.},\text{ as }n\rightarrow\infty$である可測関数列$f_n,n=1,2,...$と可測関数$f$について
+\eq{\lim_{n\rightarrow\infty}\int_X f_nd\mu=\int_Xfd\mu}
+が成り立つ．
+\end{theorem}\begin{theorem}[Fatouの補題]
+$f_n\ge0,n=1,2,...\text{ a.s.}$である可測関数$f_n$について
+\eq{\liminf_{n\rightarrow\infty}\int_Xf_nd\mu=\int_X\liminf_{n\rightarrow\infty}f_nd\mu}
+が成り立つ．
+\end{theorem}\begin{theorem}[Lebesgueの収束定理]
+可測関数列$f_n,n=1,2,...$と可測関数$f$が
+\items{
+	\item $f_n\rightarrow f\text{ a.s.},\text{ as }n\rightarrow\infty$
+	\item 任意の$n$に対して$|f_n|\le h\text{ a.s.}$となる可積分関数$g$が存在する}
+をみたすならば，
+\eq{\lim_{n\rightarrow\infty}\int_X f_nd\mu=\int_Xfd\mu}
+が成り立つ．
+\end{theorem}
+
+\subsection*{証明}
+命題間の関係を示し，その後に単調収束定理およびFatouの補題をそれぞれ示す．
+\begin{proof}[単調収束定理を認めたときのFatouの補題の証明]
+$g_n=\inf_{k\ge n}f_k$とおけば，$f_n\ge g_n\text{ a.s.}$をみたす．
+また下極限の定義から，$\liminf_{n\rightarrow\infty}f_n=\sup_{n\ge1}\inf_{k\ge n}f_k$より，
+$g_n\uparrow\liminf_{n\rightarrow\infty}f_n$もみたすことがわかる．
+したがって，単調収束定理から，
+\eq{
+	\liminf_{n\rightarrow\infty}\int_Xf_nd\mu\ge\liminf_{n\rightarrow\infty}\int_Xg_nd\mu=\lim_{n\rightarrow\infty}\int_Xg_nd\mu
+	=\int_X\lim_{n\rightarrow\infty}g_nd\mu=\int_X\liminf_{n\rightarrow\infty}f_nd\mu}
+となる．
+\end{proof}
+\begin{proof}[Fatouの補題を認めたときの単調収束定理の証明]
+仮定から$f_n\le f,\int_Xf_nd\mu\le\int_Xfd\mu$なので，
+\eq{\limsup_{n\rightarrow\infty}\int_Xf_nd\mu\le\int_Xfd\mu}
+となる．Fatouの補題から
+\eq{\int_Xfd\mu\le\liminf_{n\rightarrow\infty}\int_Xf_nd\mu}
+がなりたつ．一方で，上限と下限の定義から
+\eq{\liminf_{n\rightarrow\infty}\int_Xf_nd\mu\le\limsup_{n\rightarrow\infty}\int_Xf_nd\mu}
+がなりたつので，これらの式を合わせれば，
+\eq{\int_Xfd\mu=\liminf_{n\rightarrow\infty}\int_Xf_nd\mu=\limsup_{n\rightarrow\infty}\int_Xf_nd\mu}
+が得られる．
+\end{proof}
+\begin{proof}[Fatouの補題を認めたときのLebesgueの収束定理]
+$f_n\rightarrow f\text{ a.e.},\text{ as }n\rightarrow\infty$，$f_n\le h\text{ a.s.},n=1,2,...$で$g$は可積分であることから，$|f|\le h$となり，$f$も可積分である．
+$h+f_n\ge0\text{ a.e.},h-f_n\ge0\text{ a.e.},n=1,2,...$なので，これらに対してFatouの補題を適用すると，
+\eq{	\int_Xhd\mu+\int fd\mu&=\int_X(h+f)d\mu=\int_X\liminf_{n\rightarrow\infty}(h+f_n)d\mu\\&=\liminf_{n\rightarrow\infty}\int_X(h+f_n)d\mu=\int_Xhd\mu+\liminf_{n\rightarrow\infty}\int_Xf_nd\mu}
+より，$\liminf_{n\rightarrow\infty}\int_Xf_nd\mu\ge\int_Xhd\mu$が得られる．
+同様に
+\eq{	\int_Xhd\mu+\int(-f)d\mu&=\int_X(h-f)d\mu=\int_X\liminf_{n\rightarrow\infty}(h-f_n)d\mu\\&=\liminf_{n\rightarrow\infty}\int_X(h-f_n)d\mu=\int_Xhd\mu+\liminf_{n\rightarrow\infty}\int_X(-f_n)d\mu}
+より，$\limsup_{n\rightarrow\infty}\int_Xf_nd\mu\le\int_Xhd\mu$が得られる．
+これらを合わせれば，題意を得る．
+\end{proof}
+
 \section{Radon-Nikodymの定理}
 Capinski, and Kopp, \textit{Measure, Integral and Probability}, Springer, 2004 をもとにRadon-Nikodymの定理を証明：
 可測空間$(\Omega,\mathcal{F})$上の$F\in\mathcal{F}$に対する測度$\nu(F)$が
