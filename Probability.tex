@@ -28,7 +28,11 @@
 \newcommand{\dcap}[1][]{\operatorname*{\cap_\mathnormal{#1}}}
 %
 \begin{document}
-\section{収束定理}
+
+% ------------------------------------------
+% convergence theorem
+% ------------------------------------------
+\section{極限と積分の交換に関する定理}
 単調収束定理とFatouの補題，Lebesgueの収束定理のステートメントその証明を述べます．
 単調収束定理あるいはFatouの補題のいずれかを証明できれば，他の定理はそれらから示すことができますが，
 最初にこれら$2$つの命題のいずれかを示すのに骨が折れます．
@@ -61,8 +65,8 @@ $f_n\ge0,n=1,2,...\text{ a.e.}$である可測関数$f_n$について
 命題間の関係を示し，その後に単調収束定理およびFatouの補題をそれぞれ示す．
 \begin{proof}[単調収束定理を認めたときのFatouの補題の証明]
 $g_n=\inf_{k\ge n}f_k$とおけば，$f_n\ge g_n\text{ a.e.}$をみたす．
-また下極限の定義から，$\liminf_{n\rightarrow\infty}f_n=\sup_{n\ge1}\inf_{k\ge n}f_k$より，
-$g_n\uparrow\liminf_{n\rightarrow\infty}f_n$もみたすことがわかる．
+また下極限の定義から，$\displaystyle \liminf_{n\rightarrow\infty}f_n=\sup_{n\ge1}\inf_{k\ge n}f_k$より，
+$\displaystyle g_n\uparrow\liminf_{n\rightarrow\infty}f_n$もみたすことがわかる．
 したがって，単調収束定理から，
 \eq{
 	\liminf_{n\rightarrow\infty}\int_Xf_nd\mu\ge\liminf_{n\rightarrow\infty}\int_Xg_nd\mu=\lim_{n\rightarrow\infty}\int_Xg_nd\mu
@@ -84,13 +88,16 @@ $g_n\uparrow\liminf_{n\rightarrow\infty}f_n$もみたすことがわかる．
 $f_n\rightarrow f\text{ a.e.},\text{ as }n\rightarrow\infty$，$f_n\le h\text{ a.e},n=1,2,...$で$g$は可積分であることから，$|f|\le h$となり，$f$も可積分である．
 $h+f_n\ge0\text{ a.e.},h-f_n\ge0\text{ a.e.},n=1,2,...$なので，これらに対してFatouの補題を適用すると，
 \eq{	\int_Xhd\mu+\int fd\mu&=\int_X(h+f)d\mu=\int_X\liminf_{n\rightarrow\infty}(h+f_n)d\mu\\&=\liminf_{n\rightarrow\infty}\int_X(h+f_n)d\mu=\int_Xhd\mu+\liminf_{n\rightarrow\infty}\int_Xf_nd\mu}
-より，$\liminf_{n\rightarrow\infty}\int_Xf_nd\mu\ge\int_Xhd\mu$が得られる．
+より，$\displaystyle \liminf_{n\rightarrow\infty}\int_Xf_nd\mu\ge\int_Xhd\mu$が得られる．
 同様に
 \eq{	\int_Xhd\mu+\int(-f)d\mu&=\int_X(h-f)d\mu=\int_X\liminf_{n\rightarrow\infty}(h-f_n)d\mu\\&=\liminf_{n\rightarrow\infty}\int_X(h-f_n)d\mu=\int_Xhd\mu+\liminf_{n\rightarrow\infty}\int_X(-f_n)d\mu}
-より，$\limsup_{n\rightarrow\infty}\int_Xf_nd\mu\le\int_Xhd\mu$が得られる．
+より，$\displaystyle \limsup_{n\rightarrow\infty}\int_Xf_nd\mu\le\int_Xhd\mu$が得られる．
 これらを合わせれば，題意を得る．
 \end{proof}
 
+% ------------------------------------------
+% Radon-Nikodym
+% ------------------------------------------
 \section{Radon-Nikodymの定理}
 Capinski, and Kopp, \textit{Measure, Integral and Probability}, Springer, 2004 をもとにRadon-Nikodymの定理を証明：
 可測空間$(\Omega,\mathcal{F})$上の$F\in\mathcal{F}$に対する測度$\nu(F)$が
@@ -129,4 +136,63 @@ Radon-Nikodymの定理との違いは
 		が非減少列になることを確認する．
 	\item 1.の結果，および(\ref{nondecint})で定められる列は上限$1$で押さえられることから，収束定理を用いて(\ref{rep1})をみたす$h$を$h_{\mathcal{P}_n}$の極限として求めることができる．
 	\item 2.の方法で定めた$h$が望ましい性質を持つことを確認する．}
+	
+% ------------------------------------------
+% convergence theorem
+% ------------------------------------------
+\section{収束定理}
+この節では確率空間$(\Omega,\mathcal{F},P)$を固定して考える．
+\begin{definition}[概収束(almost sure convergence)]
+確率変数$X_n,X$が$P\left(\displaystyle\lim_{n\rightarrow\infty}\left|X_n-X\right|=0\right)=1$をみたすとき，
+$X_n$は$X$に\textbf{概収束}するいい，$X_n\overset{\text{a.s.}}{\rightarrow}X$と書く．
+\end{definition}\begin{definition}[確率収束(convergence in probability)]
+確率変数$X_n,X$が，任意の$\varepsilon>0$に対して$\displaystyle\lim_{n\rightarrow\infty}P\left(\left|X_n-X\right|>\varepsilon\right)=0$をみたすとき，
+$X_n$は$X$に\textbf{確率収束}するいい，$X_n\overset{\text{a.s.}}{\rightarrow}X$と書く．
+\end{definition}\begin{definition}[$L^p$-収束(convergence in $L^p$)]
+確率変数$X_n,X$が$\displaystyle \lim_{n\rightarrow\infty}\left||X_n-X\right||=0$をみたすとき，
+$X_n$は$X$に\textbf{$L^p$-収束}するいい，$X_n\overset{L^p}{\rightarrow}X$と書く．
+\end{definition}\begin{definition}[弱収束(weakly convergence)]
+Borel-確率測度の列$P_n$がBorel-確率測度$P$に\textbf{分布収束}(or \textbf{弱収束})するとは，
+$F, Fn, n = 1, 2, ...$を$\mathbb{R}^k$上の累積分布関数とし，これらに対応する確率測度$P, Pn, n = 1,2,...$とする．
+任意の$F(x)$の連続点$x$に対して$\displaystyle\lim_{n\rightarrow\infty}F_n(x)=F(x)$がなりたつとき，
+$\{F_n\}$が$F$に\textbf{弱収束}する，あるいは$\{P_n\}$が$P$に\textbf{弱収束}するといい，$F_n\overset{\text{w}}{\rightarrow}F$，あるいは$P_n\overset{\text{w}}{\rightarrow}P$と書く．
+\end{definition}\begin{definition}[分布収束(convergence in distribution)]
+確率変数$X_n,X$の分布関数$F_{X_n},F_X$について$F_{X_n}\overset{\text{w}}{\rightarrow}F_X$がなりたつとき，$\{X_n\}$は$X$に\textbf{分布収束}するといい，$X_n\overset{\text{d}}{\rightarrow}X$と書く．
+\end{definition}
+
+\begin{theorem}確率変数$X_n,Y_n,X$について次がなりたつ．
+\enums{
+	\item $X_n\overset{\text{a.s.}}{\rightarrow}X$ならば$X_n\overset{\text{p}}{\rightarrow}X$がなりたつ．逆は一般的に真ではない．
+	\item $X_n\overset{\text{p}}{\rightarrow}X$ならば$X_n\overset{\text{d}}{\rightarrow}P_X$がなりたつ．逆は一般的に真ではないが，次の3.がなりたつ．
+	\item $X_n$の極限が定数$c$であるとき，$X_n\overset{\text{p}}{\rightarrow}X$と$X_n\overset{\text{d}}{\rightarrow}X$は同値である．}
+\end{theorem}\begin{theorem}[Slutskyの定理]
+$X_n,Y_n,X$は確率変数，$c$ は定数のとき，$X_n\overset{\text{d}}{\rightarrow}X$かつ$Y_n\overset{\text{p}}{\rightarrow}c$ならば，次の$2$がなりたつ．
+\enums{	
+	\item $X_n+Y_n\overset{\text{d}}{\rightarrow}X+c$
+	\item $Y_nX_n\overset{\text{d}}{\rightarrow}cX$}
+\end{theorem}
+\begin{theorem}[Slutskyの補題]
+$X_n,Y_n,X$は確率変数，$c$ は定数のとき，$X_n\overset{\text{d}}{\rightarrow}X$かつ$Y_n\overset{\text{p}}{\rightarrow}c$ならば，$(X_n,Y_n)\overset{\text{d}}{\rightarrow}(X,c)$がなりたつ．
+\end{theorem}
+\items{
+	\item[×]$X_n\overset{\text{d}}{\rightarrow}X$，$Y_n\overset{\text{d}}{\rightarrow}Y$ならば$X_n+Y_n\overset{\text{d}}{\rightarrow}X+Y$，$X_nY_n\overset{\text{d}}{\rightarrow}XY$．
+	\item[○]$(X_n,Y_n)\overset{\text{d}}{\rightarrow}(X,Y)$ならば，$X_n+Y_n\overset{\text{d}}{\rightarrow}X+Y$，$X_nY_n\overset{\text{d}}{\rightarrow}XY$．}
+\begin{theorem}[Cramer-Wald's device]
+確率変数ベクトルの列$X_n=(X_n^1,...,X_n^d)^\top$とその極限$X=(X^1,...,X^d)^\top$が，$X\overset{\text{d}}{\rightarrow}X$であることと，
+任意の定数ベクトル$c=(c^1,...,c^d)$に対して$c^\top X_n\overset{\text{d}}{\rightarrow}c^\top X$であることは同値である．
+\end{theorem}
 \end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
