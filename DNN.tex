@@ -1,0 +1,157 @@
+\documentclass[a4paper,10pt]{jsarticle}
+\usepackage{amsmath,amssymb,mathrsfs,amsthm}
+\usepackage{framed,color}
+\usepackage{newtxtext,newtxmath}
+ \usepackage{ascmac}
+% ---Set margin---
+\setlength{\textheight}{\paperheight}
+\setlength{\topmargin}{4.6truemm}
+\addtolength{\topmargin}{-\headheight}
+\addtolength{\topmargin}{-\headsep}
+\addtolength{\textheight}{-60truemm}
+
+% Theorem Environments ---------------------------------------------------
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+
+
+% ShortCut Environments ---------------------------------------------------
+\newcommand{\eq}[1]{\begin{align}#1\end{align}}
+\newcommand{\items}[1]{\begin{itemize}#1\end{itemize}}
+\newcommand{\enums}[1]{\begin{enumerate}#1\end{enumerate}}
+\newcommand{\pmat}[1]{\begin{pmatrix}#1\end{pmatrix}}
+\newcommand{\point}[1]{\subsubsection*{#1}\addcontentsline{toc}{subsubsection}{#1}}
+\newcommand{\dcup}[1][]{\operatorname*{\cup_\mathnormal{#1}}}
+\newcommand{\dcap}[1][]{\operatorname*{\cap_\mathnormal{#1}}}
+%
+\begin{document}
+\setcounter{section}{1}
+%%%%%%%%%
+%Chapter.2
+%%%%%%%%%
+\section{順伝播型ネットワーク}
+ニューラルネットワークを定式化
+%
+%section2.1
+\subsection{ユニットの出力}
+\begin{itembox}[l]{キーワード}
+順伝播型(ニューラル)ネットワーク，多層パーセプトロン，重み，バイアス，活性化関数
+\end{itembox}
+ネットワークを構成する各ユニットは，入力$x_1,...,x_I$を受けとり，総入力:
+\eq{u=w_1x_1+\cdots+w_Ix_I+b}
+を計算した上で，\text{活性化関数}$f$を用いて
+\eq{z=f(u)}
+を出力します．
+ここで$w_1,...,w_I$は\textbf{重み}，$b$は\textbf{バイアス}です．
+
+$1$ つの層に複数のユニットが存在している場合，ベクトルを用いて次のように書けます．
+\eq{\mathbf{u}&=\mathbf{Wx}+\mathbf{b}\\
+\mathbf{z}&=\mathbf{f}(\mathbf{u})}
+ただし，入力(=第一層)のユニット数は$I$，第二層のユニット数は$J$とし，各記号は次のとおり：
+\eq{\mathbf{u}=(u_1,...,u_J)^\top,\mathbf{x}=(x_1,...,x_I)^\top,\mathbf{b}=(b_1,...,b_J)^\top,\mathbf{z}=(z_1,...,z_J)^\top,\\
+\mathbf{W}=\begin{pmatrix}(w_{11}&\cdots&w_{1I}\\\vdots&\ddots&\vdots\\w_{J1}&\cdots&w_{JI}\\\end{pmatrix},\mathbf{f}(\mathbf{u})=(f(u_1),...,f(u_J))^\top}
+
+%
+%section2.2
+\subsection{活性化関数(ユニット間，出力層ではない)}
+\begin{itembox}[l]{キーワード}
+ロジスティック(シグモイド)関数，シグモイド関数，正規化線形関数，マックスアウト
+\end{itembox}
+\items{
+	\item ロジスティック関数 $\subset$ シグモイド関数　
+		\eq{f(u)=\frac{1}{1+e^{-u}}}
+	\item 双曲線正接関数(hyperbolic tangent) $\subset$ シグモイド関数　
+		\eq{f(u)=\tanh(u)}
+	\item 正規化線形関数
+		\eq{f(u)=\max(u,0)}
+		この関数をもつユニットを\textbf{ReLU} と言います．
+	\item 線形写像・恒等写像
+	\item ロジスティック関数を区分線形近似したもの
+		\eq{f(u)=\begin{cases}-1&u<-1\\u&-1\le u<1\\1&u\ge1\end{cases}}
+	\item マックスアウト($K$個のユニットをまとめたようなもの)
+		\eq{
+			u_{jk}&=\sum_iw_{jik}z_i+b_{jk}\\
+			f(u_j)&=\max_{k+1,...,K}u_{jk}}
+	}
+%
+%section2.3
+\subsection{多層ネットワーク}
+\begin{itembox}[l]{キーワード}
+入力層，中間層(=隠れ層)，出力層
+\end{itembox}
+各層のユニットの入出力の計算を区別するために，層が$l=1,2,...,L$となっているときに各変数の肩に$(l)$と記すことにします．
+すると，層$2$のユニットの出力$\mathbf{z}^{(2)}$は，入力層$\mathbf{x}$から
+\eq{
+	\mathbf{u}^{(2)}&=\mathbf{W}^{(2)}\mathbf{x}+\mathbf{b}^{(2)}\\
+	\mathbf{z}^{(2)}&=\mathbf{f}(\mathbf{u}^{(2)})}
+と計算され，その後の層$l+1$のユニットの出力$\mathbf{z}^{(l+1)}$は，$1$つ下の層の出力$\mathbf{z}^{(l)}$から
+\eq{
+	\mathbf{u}^{(l+1)}&=\mathbf{W}^{(l+1)}\mathbf{z}^{(l)}+\mathbf{b}^{(l+1)}\\
+	\mathbf{z}^{(l+1)}&=\mathbf{f}(\mathbf{u}^{(l+1)})}
+と計算される．最後に層$L$まで計算が終わったら，ネットワークの最終的な出力を
+\eq{\mathbf{y}=\mathbf{z}^{(L)}}
+と表記する．
+各層の重み$\mathbf{W}^{(l)}$とバイアス$\mathbf{b}^{(l)}$をユニットのパラメータと呼び，
+出力$\mathbf{y}$は入力とパラメータによって決まることから，
+\eq{\mathbf{y}\left(\mathbf{x};\mathbf{W}^{(2)},...,\mathbf{W}^{(L)},\mathbf{b}^{(2)},...,\mathbf{b}^{(L)}\right)}
+あるいは簡単に
+\eq{\mathbf{y}(\mathbf{x};\mathbf{w})}
+と書きます．
+%
+%section2.4
+\subsection{出力層の設計と誤算関数}
+\begin{itembox}[l]{キーワード}
+訓練サンプル，訓練データ，誤算関数，回帰，二値分類，多クラス分類，最尤推定，ソフトマックス関数，交差エントロピー
+\end{itembox}
+学習に使用する入出力データのペア
+\eq{\left\{(\mathbf{x}_1,\mathbf{d}_1),(\mathbf{x}_2,\mathbf{d}_2),...,(\mathbf{x}_N,\mathbf{d}_N)\right\}}
+を訓練データといいます．
+%
+\subsubsection{回帰}
+出力層の活性化関数には恒等写像を用い，
+誤算関数には二乗誤算の和
+\eq{E(\mathbf{w}&=\frac{1}{2}\sum_{n=1}^N||\mathbf{d}_n-\mathbf{y}(\mathbf{x}_n;\mathbf{w})||^2}
+を使用し，$E(\mathbf{w})$がもっとも小さくなる$\mathbf{w}$を求める．
+%
+\subsubsection{二値分類}
+ここでは$\mathbf{x}$を指定したときに$d=1$となる事後確率$p(d=1|\mathbf{x})$を，
+ネットワーク全体の出力$y(\mathbf{x};\mathbf{w})$でモデル化し，
+出力層の活性化関数にロジスティック関数を使うことで，
+\eq{p(d=1|\mathbf{x})\approx y(\mathbf{x};\mathbf{w})}
+とします．
+パラメータ$\mathbf{w}$は最尤推定で求めることにします．
+$p(d=1|\mathbf{x})=y(\mathbf{x};\mathbf{w})$より$p(d=0|\mathbf{x})=1-y(\mathbf{x};\mathbf{w})$であることと，
+\eq{p(d|\mathbf{x})=p(d=1|\mathbf{x})^dp(d=0|\mathbf{x})^{1-d}}
+より，$N$個の入力に対する尤度は
+\eq{L(\mathbf{w})=\prod_{n=1}^Np(d_n|\mathbf{x}_n;\mathbf{w})=\prod_{n=1}^Ny(\mathbf{x}_n;\mathbf{w})^{d_n}\left\{1-y(\mathbf{x}_n;\mathbf{w})\right\}^{1-d_n}}
+となります．誤差関数としてはこれに対数をとって符号を反転させた
+\eq{E(\mathbf{w})=-\sum_{n=1}^N\left[d_n\log y(\mathbf{x}_n;\mathbf{w})+(1-d_n)\log\left\{1-y(\mathbf{x}_n;\mathbf{w})\right\}\right]}
+を用て，パラメータ$\mathbf{w}$を求めます．
+%
+\subsubsection{多クラス分類}
+ネトワークの出力層にクラス数$K$と同じ$K$個のユニットを並べ，出力層の各ユニット$k(=1,...,K)$の出力を
+\eq{y_k=z_k^{(L)}=\frac{\exp(u_k^{(L)})}{\sum_{j=1}^K\exp(u_j^{(L)})}}
+とします．
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
