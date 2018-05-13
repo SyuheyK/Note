@@ -28,6 +28,10 @@
 \newcommand{\dcup}[1][]{\operatorname*{\cup_\mathnormal{#1}}}
 \newcommand{\dcap}[1][]{\operatorname*{\cap_\mathnormal{#1}}}
 %
+% Commands ------------------------------------------------
+\newcommand{\argmin}{\mathop{\rm arg~min}}
+%
+%
 \begin{document}
 \setcounter{section}{1}
 %%%%%%%%%
@@ -107,15 +111,15 @@ $1$ つの層に複数のユニットが存在している場合，ベクトル�
 \begin{itembox}[l]{キーワード}
 訓練サンプル，訓練データ，誤算関数，回帰，二値分類，多クラス分類，最尤推定，ソフトマックス関数，交差エントロピー
 \end{itembox}
-学習に使用する入出力データのペア
-\eq{\left\{(\mathbf{x}_1,\mathbf{d}_1),(\mathbf{x}_2,\mathbf{d}_2),...,(\mathbf{x}_N,\mathbf{d}_N)\right\}}
-を訓練データといいます．
+学習に使用する入出力データ
+\eq{\mathcal{D}=\left\{(\mathbf{x}_1,\mathbf{d}_1),(\mathbf{x}_2,\mathbf{d}_2),...,(\mathbf{x}_N,\mathbf{d}_N)\right\}}
+を訓練データといいます．$\mathbf{x}_n$が入力，$\mathbf{d}_n$が出力．
 %
 \subsubsection{回帰}
 出力層の活性化関数には恒等写像を用い，
 誤算関数には二乗誤算の和
-\eq{E(\mathbf{w}&=\frac{1}{2}\sum_{n=1}^N||\mathbf{d}_n-\mathbf{y}(\mathbf{x}_n;\mathbf{w})||^2}
-を使用し，$E(\mathbf{w})$がもっとも小さくなる$\mathbf{w}$を求める．
+\eq{E(\mathbf{w})&=\frac{1}{2}\sum_{n=1}^N||\mathbf{d}_n-\mathbf{y}(\mathbf{x}_n;\mathbf{w})||^2}
+を使用し，$E(\mathbf{w})$がもっとも小さくなる$\mathbf{w}$を求めます．
 %
 \subsubsection{二値分類}
 ここでは$\mathbf{x}$を指定したときに$d=1$となる事後確率$p(d=1|\mathbf{x})$を，
@@ -133,9 +137,163 @@ $p(d=1|\mathbf{x})=y(\mathbf{x};\mathbf{w})$より$p(d=0|\mathbf{x})=1-y(\mathbf
 を用て，パラメータ$\mathbf{w}$を求めます．
 %
 \subsubsection{多クラス分類}
+\subsubsection*{出力層の活性化関数}
 ネトワークの出力層にクラス数$K$と同じ$K$個のユニットを並べ，出力層の各ユニット$k(=1,...,K)$の出力を
 \eq{y_k=z_k^{(L)}=\frac{\exp(u_k^{(L)})}{\sum_{j=1}^K\exp(u_j^{(L)})}}
-とします．
+とします．この関数はソフトマックス関数と呼ばれます．
+この式のスコア$u_k^{(L)}$に対して
+\eq{u_k^{(L)}&=\mathbf{W}^{(L)}\mathbf{z}^{(L)}+\mathbf{b}^{(L)}}
+と出力層のユニットを当てはめ，$\mathbf{W}$を求めます．
+
+\subsubsection*{誤差関数の導出}
+分類する$K$個のクラスを$\mathcal{C}_1,...,\mathcal{C}_K$を表すとき，ユニット$k$の出力値$y_k$を用いて，クラス$\mathcal{C}_k$に属する確率を
+\eq{p(\mathcal{C}_k|\mathbf{x})=y_k=z_k^{(L)}}
+でモデル化します．
+$n$個めのサンプルがクラス$\mathcal{C}_k$に入っているとき，
+出力値であるラベル$\mathbf{d}_n$が$k$番目の要素が$1$でそれ以外は$0$であるベクトルで表されているとします．
+たとえば，合計$10$クラスで$3$番目のクラスに属しているとき，
+\eq{\mathbf{d}_n=[0~0~1~0~0~0~0~0~0~0]^\top}
+と表されます．このとき$\mathbf{d}_n$の事後分布は
+\eq{p(\mathbf{d}_n|\mathbf{x})=\prod_{k=1}^Kp(\mathcal{C}_k|\mathbf{x})^{d_k}}
+となります．
+これをもとにした尤度関数$L(\mathbf{w})$は
+\eq{L(\mathbf{w})
+	&=\prod_{n=1}^Np(\mathbf{d}_n|\mathbf{x}_n;\mathbf{w})
+	=\prod_{n=1}^N\prod_{k+1}^Kp(\mathcal{C}_n|\mathbf{x}_n)^{d_{n,k}}
+	=\prod_{n=1}^N\prod_{k+1}^K(y_k(\mathbf{x};\mathbf{w}))^{d_{n,k}}}
+となるので，対数と負をとったものを誤差関数とします：
+\eq{E(\mathbf{w})=-\sum_{n=1}^N\sum_{k+1}^Kd_{n,k}\log y_k(\mathbf{x};\mathbf{w})}
+この誤差関数は交差エントロピーと呼ばれます．
+
+%
+%chapter 2の補足
+\subsubsection{出力層の活性化関数}
+二値分類でロジスティック関数，多クラス分類でソフトマックス関数を使うことの妥当性を確認する計算
+\subsubsection*{二値分類}
+事後確率$p(d=1|\mathbf{x})$は条件付確率の定義から
+\eq{p(d=1|\mathbf{x})
+	&=\frac{p(\mathbf{x},d=1)}{p(\mathbf{x})}
+	=\frac{p(\mathbf{x},d=1)}{p(\mathbf{x},d=0)+p(\mathbf{x},d=1)}}
+と計算できます．ここでスコア$u$を
+\eq{u:=\log\frac{p(\mathbf{x},d=1)}{p(\mathbf{x},d=0)}}
+で表せば，先ほどの事後確率は
+\eq{p(d=1|\mathbf{x})
+	&=\frac{p(\mathbf{x},d=1)}{p(\mathbf{x},d=0)+p(\mathbf{x},d=1)}\\
+	&=\frac{\mathrm{e}^{\log p(\mathbf{x},d=1)}}{\mathrm{e}^{\log p(\mathbf{x},d=0)}+\mathrm{e}^{\log p(\mathbf{x},d=1)}}\\
+	&=\frac{1}{1+\mathrm{e}^{\log p(\mathbf{x},d=0) - \log p(\mathbf{x},d=1)}}\\
+	&=\frac{1}{1+\mathrm{e}^{-u}}}
+と計算でき，ロジスティック関数に一致することを確認できます．
+\subsubsection*{多クラス分類}
+ロジスティック関数と同様クラス$\mathcal{C}_k$の事後確率は条件付確率の定義から
+\eq{p(\mathcal{C}_k|\mathbf{x})
+	&=\frac{p(\mathbf{x},\mathcal{C}_k)}{p(\mathbf{x})}=\frac{p(\mathbf{x},\mathcal{C}_k)}{\sum_{j=1}^Kp(\mathbf{x},\mathcal{C}_j)}}
+となります．ここではクラス$k$のスコアを$u_k:=\log p(\mathbf{x},\mathcal{C}_k)$と置くことで，この事後確率を
+\eq{p(\mathcal{C}_k|\mathbf{x})
+	&=\frac{p(\mathbf{x},\mathcal{C}_k)}{\sum_{j=1}^Kp(\mathbf{x},\mathcal{C}_j)}\\
+	&=\frac{\mathrm{e}^{\log p(\mathbf{x},\mathcal{C}_k)}}{\sum_{j=1}^K\mathrm{e}^{\log p(\mathbf{x},\mathcal{C}_j)}}\\
+	&=\frac{\mathrm{e}^{u_k}}{\sum_{j=1}^K\mathrm{e}^{u_j}}}
+と計算でき，ソフトマックス関数に一致することを確認できます．
+
+%%%%%%%%%
+%Chapter.3前半&4
+%%%%%%%%%
+\section{確率的勾配降下法と誤差逆伝播法}
+%
+%section3.1
+\subsection{勾配降下法}
+\begin{itembox}[l]{キーワード}
+大域解，局所解，勾配効果法，勾配，学習係数
+\end{itembox}
+\subsubsection*{やることまとめ}
+順伝播型ネットワークの学習のまとめ：与えられた訓練データ
+\eq{\mathcal{D}=\left\{(\mathbf{x}_1,\mathbf{d}_1),(\mathbf{x}_2,\mathbf{d}_2),...,(\mathbf{x}_N,\mathbf{d}_N)\right\}}
+を元に計算される誤差関数$E(\mathbf{w})$をネットワークのパラメータ$\mathbf{w}$について最小化すること．
+学習のゴールは$\argmin_\mathbf{w}E(\mathbf{w})$(=選んだ$E(\mathbf{w})$に対し最小値を与える$\mathbf{w}$)を求めることです．
+ただし，$E(\mathbf{w})$は一般に凸関数ではないため，大域的最小解を直接求めるのは不可能です．
+代わりに，$E(\mathbf{w})$の局所的な最小解$\mathbf{w}$を求めます．
+この$E(\mathbf{w})$の局所的最小解$\mathbf{w}$を求める方法の代表例が勾配降下法です．
+\subsubsection*{勾配降下法とは}
+勾配降下法とは，現在の$\mathbf{w}$を，負の勾配方向$-\nabla E$に少し動かすことを繰り返す方法です
+\footnote{$\nabla E$は，変数である$\mathbf{w}$を動かしたとき$E$は$\nabla E$だけ増加するということを表す量のことです．これを負の方向に動かせば$E$は$\nabla E$だけ減少します．}．
+ここで勾配とは微分を並べたベクトル：
+\eq{\nabla E=\frac{\partial E}{\partial\mathbf{w}}=\left[\frac{\partial E}{\partial w_1}\cdot\frac{\partial E}{\partial w_M}\right]^\top}
+です．現在の重みを$\mathbf{w}^{(t)}$，動かした後の重みを$\mathbf{w}^{(t+1)}$と表せば，
+\eq{\mathbf{w}^{(t+1)}=\mathbf{w}^{(t+1)}-\epsilon\nabla E\label{renewal1}}
+で重みを更新することが勾配降下法であると書き直すことができます．
+$\epsilon$は$\mathbf{w}$の更新量の大きさを決めるパラメータ({\bf 学習係数})です\footnote{これは人間が決めます．}．
+実際の更新手順は，初期値$\mathbf{w}^{(1)}$を適当に決め，式(\ref{renewal1})で$\mathbf{w}^{(2)},\mathbf{w}^{(3)},...$と順次計算していきます．
+%
+%section3.2
+\subsection{確率的勾配降下法}
+\begin{itembox}[l]{キーワード}
+バッチ学習，確率的勾配降下法
+\end{itembox}
+\subsubsection*{確率的勾配降下法とは}
+前節の誤差関数は全サンプルを用いたものでした\footnote{全サンプルを使用する学習を\textbf{バッチ学習}と言ったりします}．
+$n$番目のサンプル1個だけの誤差を$E_n(\mathbf{w})$と表せば
+\eq{E(\mathbf{w})=\sum_{n=1}^NE_n(\mathbf{w})}
+となります．確率的勾配効果法は更新式(\ref{renewal1})の勾配$\nabla E$を$\nabla E_n$に置き換えた更新式：
+\eq{\mathbf{w}^{(t+1)}=\mathbf{w}^{(t+1)}-\epsilon\nabla E_\mathbf{n}\label{renewal2}}
+を用いる方法です．
+\subsubsection*{確率的勾配降下法のメリット}
+\items{
+	\item 訓練データに冗長性がある場合，計算効率が上昇する
+	\item 一つの局所的最小解にハマるリスクが下がる
+	\item 学習の経過を細かく監視できる
+	\item オンライン学習が可能
+}
+%
+%section4.1
+\subsection{勾配計算の難しさ}
+前節の勾配を試しに，
+二乗誤差：$E_n=1/2||\mathbf{y}(\mathbf{x}_n)-\mathbf{d}_n||^2$に対して，
+第$l$層の重み$w_{ij}^{(l)}$に関する微分で計算してみましょう．
+合成関数の微分から
+\eq{\frac{\partial E_n}{\partial w_{ij}^{(l)}}=(\mathbf{y}(\mathbf{x}_n)-\mathbf{d}_n)^\top\frac{\partial\mathbf{y}}{\partial w_{ij}^{(l)}}}
+と計算できます．
+さらに中身の微分$\partial\mathbf{y} / \partial w_{ij}^{(l)}$も計算できれば，この微分を数値的にも計算できます．
+だがしかし，第$L$層である出力層から遡って計算するため，
+微分をする対象の$\mathbf{y}$は
+\eq{\mathbf{y}
+	&=\mathbf{f}\left(\mathbf{u}^{(L)}\right)\\
+	&=\mathbf{f}\left(\mathbf{W}^{(L)}\mathbf{z}^{(L-1)}+\mathbf{b}^{(L)}\right)\\
+	&=\mathbf{f}\left(\mathbf{W}^{(L)}\mathbf{f}(\mathbf{W}^{(L-1)}\mathbf{z}^{(L-2)}+\mathbf{b}^{(L-1)})+\mathbf{b}^{(L)}\right)\\
+	&=\mathbf{f}\left(\mathbf{W}^{(L)}\mathbf{f}(\mathbf{W}^{(L-1)}\mathbf{f}(\cdots\mathbf{f}(\mathbf{W}^{(l)}\mathbf{z}^{(l-1)}+\mathbf{b}^{(l)})\cdots))+\mathbf{b}^{(L)}\right)\\
+	}
+となり，上式の$\mathbf{W}^{(l)}$の一要素である$w_{ij}^{(l)}$で微分しなければならないですが，
+ご覧のとおり多くの活性化関数の入れ子の中に$w_{ij}^{(l)}$があるので連鎖規則を何度も適用する必要があり，この微分を計算するのは容易ではありません．
+これを解決するのが次節から説明する\textbf{誤差逆伝播法}です．
+%
+%section4.2
+\subsection{回帰の2層ネットワークでの誤差逆伝播法の計算例}
+
+%
+%section4.3
+\subsection{多層ネットワークでの誤差逆伝播法(一般化)}
+
+%
+%section4.4
+\subsection{勾配降下法のアルゴリズム完全版}
+
+%%%%%%%%%
+%Chapter.3後半&4.5
+%%%%%%%%%
+\section{パラメータ推計に関するトピック}
+%
+%section3.3
+\subsection{ミニバッチの利用}
+%
+%section3.4
+\subsection{汎化性能と過剰適合}
+%
+%section3.5
+\subsection{過剰適合の緩和}
+%
+%section3.6
+\subsection{学習のトリック}
+%
+%section4.5
+\subsection{勾配消失問題}
 
 \end{document}
 
