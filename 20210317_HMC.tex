@@ -1,0 +1,122 @@
+\documentclass[dvipdfmx, a4paper,10pt]{jsarticle}
+\usepackage{amsmath,amssymb,mathrsfs,amsthm,comment}
+\usepackage{framed,color,minijs, otf}
+\usepackage{newtxtext,newtxmath}
+\usepackage{ascmac}%, fancybx}
+\usepackage[dvipdfmx]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{algorithmicx,algorithm}
+\definecolor{darkblue}{rgb}{0.0, 0.0, 0.55}
+
+\usepackage{tikz} 
+\usepackage{tikz-3dplot}
+\usepackage{pgfplots}
+\usetikzlibrary{intersections, calc, arrows, quotes, angles}
+
+% change environment
+\renewcommand{\figurename}{図表}
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+
+% ---Set margin---
+\setlength{\textheight}{\paperheight}
+\setlength{\topmargin}{4.6truemm}
+\addtolength{\topmargin}{-\headheight}
+\addtolength{\topmargin}{-\headsep}
+\addtolength{\textheight}{-60truemm}
+
+% Theorem Environments ---------------------------------------------------
+\theoremstyle{definition}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{definition}{定義}[section]
+\newtheorem{lemma}{補題}[section]
+\newtheorem{proposition}{命題}[section]
+\newtheorem{corollary}{系}[section]
+\newtheorem{eg}{例}[section]
+\newtheorem{exampleproblem}{例題}[section]
+
+% ShortCut Environments ---------------------------------------------------
+% ----
+% environments
+\newcommand{\eq}[1]{\begin{align}#1\end{align}}
+\newcommand{\items}[1]{\begin{itemize}#1\end{itemize}}
+\newcommand{\enums}[1]{\begin{enumerate}#1\end{enumerate}}
+\newcommand{\thm}[1]{\begin{theorem}#1\end{theorem}}
+\newcommand{\defn}[1]{\begin{definition}#1\end{definition}}
+\newcommand{\prop}[1]{\begin{proposition}#1\end{proposition}}
+\newcommand{\egprob}[1]{\begin{exampleproblem}#1\end{exampleproblem}}
+\newcommand{\prove}[1]{\begin{proof}#1\end{proof}}
+% operators
+\newcommand{\pmat}[1]{\begin{pmatrix}#1\end{pmatrix}}
+\newcommand{\vmat}[1]{\begin{vmatrix}#1\end{vmatrix}}
+\newcommand{\point}[1]{\subsubsection*{#1}\addcontentsline{toc}{subsubsection}{#1}}
+\newcommand{\dcup}[1][]{\operatorname*{\cup_\mathnormal{#1}}}
+\newcommand{\dcap}[1][]{\operatorname*{\cap_\mathnormal{#1}}}
+% symbols
+\newcommand{\be}{\boldsymbol{e}}
+\newcommand{\bn}{\boldsymbol{n}}
+\newcommand{\bx}{\boldsymbol{x}}
+\newcommand{\by}{\boldsymbol{y}}
+\newcommand{\bz}{\boldsymbol{z}}
+\newcommand{\rd}{\mathrm{d}}
+%
+% fancy page style
+\pagestyle{fancy}
+\lhead{未定稿}
+\rhead{}
+\lfoot{\copyright 2021 PLAID, inc.}%\textcircled{c}
+\rfoot{\begin{picture}(0,0)
+\put(-60,0){\includegraphics[width=2cm]{plaid_logo_horizontal.png}}
+\end{picture}}
+
+% title setting --------------------------------------------------------------------
+\title{MCMCのまとめ}
+\author{株式会社プレイド 近藤 周平}
+\date{2021/3/31}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+%
+\section{Hamiltonian Monte Carlo}
+
+粒子が$N$個あり，$i$番目の粒子の位置が$x_i$で，$x_i$における運動量が$p_i$で表されるとし，$t=[0,T]$の間をHamilton方程式:
+\eq{\dfrac{dx_i(t)}{dt}=\dfrac{\partial H(x,p)}{\partial p_i},\dfrac{dp_i(t)}{dt}=-\dfrac{\partial H(x,p)}{\partial x_i}}
+をみたしながら推移するものとする．
+\begin{figure}[hbtp]
+\begin{center}\begin{tikzpicture}[scale=0.8]
+%	\path node[circle, draw] (A) at (0, 0) {A};
+	\coordinate (A) at (0,0); %点A
+	\node[below] at (0,0)  {$\left(x(0),p(0)\right)$};
+	\coordinate (B) at (5,5); %点A
+	\node[above] at (5,5)  {$\left(x(T),p(T)\right)$};
+	\foreach \P in {A,B} \fill[black] (\P) circle (0.06);  %点A,B,Cに黒丸
+	%\node[right] at (1,1)  {$\dfrac{dx_i(t)}{dt}=\dfrac{\partial H(x,p)}{\partial p_i},\dfrac{dp_i(t)}{dt}=-\dfrac{\partial H(x,p)}{\partial x_i}$};
+	\node[right] at (1,1)  {$f:\left(x(0),p(0)\right)\rightarrow\left(x(T),p(T)\right)$};
+	%
+	%  ベジェ曲線の利用
+	%
+	\path[draw] (A) .. controls +(1,4) and (4,1) .. (B);
+	%
+\end{tikzpicture}\\
+%\caption{Eコマースにおけるエンドユーザー行動の因果グラフの想定例}\label{e.g.OfUser_behavior3}
+\end{center}\end{figure}
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

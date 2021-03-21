@@ -1,0 +1,374 @@
+\documentclass[dvipdfmx, a4paper,10pt]{jsarticle}
+\usepackage{amsmath,amssymb,mathrsfs,amsthm,comment}
+\usepackage{framed,color,minijs, otf}
+\usepackage{newtxtext,newtxmath}
+\usepackage{ascmac}%, fancybx}
+\usepackage[dvipdfmx]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{algorithmicx,algorithm}
+\definecolor{darkblue}{rgb}{0.0, 0.0, 0.55}
+
+\usepackage{tikz} 
+\usepackage{tikz-3dplot}
+\usepackage{pgfplots}
+\usetikzlibrary{intersections, calc, arrows, quotes, angles}
+
+% change environment
+\renewcommand{\figurename}{図表}
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+
+% ---Set margin---
+\setlength{\textheight}{\paperheight}
+\setlength{\topmargin}{4.6truemm}
+\addtolength{\topmargin}{-\headheight}
+\addtolength{\topmargin}{-\headsep}
+\addtolength{\textheight}{-60truemm}
+
+% Theorem Environments ---------------------------------------------------
+\theoremstyle{definition}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{definition}{定義}[section]
+\newtheorem{lemma}{補題}[section]
+\newtheorem{proposition}{命題}[section]
+\newtheorem{corollary}{系}[section]
+\newtheorem{eg}{例}[section]
+\newtheorem{exampleproblem}{例題}[section]
+
+% ShortCut Environments ---------------------------------------------------
+% ----
+% environments
+\newcommand{\eq}[1]{\begin{align}#1\end{align}}
+\newcommand{\items}[1]{\begin{itemize}#1\end{itemize}}
+\newcommand{\enums}[1]{\begin{enumerate}#1\end{enumerate}}
+\newcommand{\thm}[1]{\begin{theorem}#1\end{theorem}}
+\newcommand{\defn}[1]{\begin{definition}#1\end{definition}}
+\newcommand{\prop}[1]{\begin{proposition}#1\end{proposition}}
+\newcommand{\egprob}[1]{\begin{exampleproblem}#1\end{exampleproblem}}
+\newcommand{\prove}[1]{\begin{proof}#1\end{proof}}
+% operators
+\newcommand{\pmat}[1]{\begin{pmatrix}#1\end{pmatrix}}
+\newcommand{\vmat}[1]{\begin{vmatrix}#1\end{vmatrix}}
+\newcommand{\point}[1]{\subsubsection*{#1}\addcontentsline{toc}{subsubsection}{#1}}
+\newcommand{\dcup}[1][]{\operatorname*{\cup_\mathnormal{#1}}}
+\newcommand{\dcap}[1][]{\operatorname*{\cap_\mathnormal{#1}}}
+% symbols
+\newcommand{\be}{\boldsymbol{e}}
+\newcommand{\bn}{\boldsymbol{n}}
+\newcommand{\bx}{\boldsymbol{x}}
+\newcommand{\by}{\boldsymbol{y}}
+\newcommand{\bz}{\boldsymbol{z}}
+\newcommand{\rd}{\mathrm{d}}
+%
+% fancy page style
+%\pagestyle{fancy}
+%\lhead{未定稿}
+%\rhead{}
+%\lfoot{\copyright 2021 PLAID, inc.}%\textcircled{c}
+%\rfoot{\begin{picture}(0,0)
+%\put(-60,0){\includegraphics[width=2cm]{plaid_logo_horizontal.png}}
+%\end{picture}}
+
+% title setting --------------------------------------------------------------------
+\title{情報幾何学のための微分幾何学}
+\author{近藤 某}
+\date{2021/3/31}
+
+\begin{document}
+\maketitle
+%\thispagestyle{fancy}
+%
+
+%
+%   1.0 微分幾何
+%
+\section{微分幾何の道具立てと平坦な多様体}
+
+%
+%
+\subsection{可微分多様体とその性質}
+位相空間$X$内の任意の2点$p,q\in X$について，$p,q$を含む開集合$U(p),U(q)$が$U(p)\cap U(q)=\phi$をみたし，$p,q$それぞれに開近傍が存在するとき，その位相空間をHausdorff空間と呼ぶ．
+イメージとしては，離れた2点には必ずそれを分離する集合が存在するような空間である．
+Hausdorff空間$M$について，$M$の各点が$\mathbb{R}^n$の開集合と同相な近傍をもつとき，$M$を$n$次元位相多様体と呼ぶ．
+
+位相多様体$M$について，$\mathbb{R}^n$の開集合$D$と同相な$M$の部分開集合を$U$と表し，
+$U$と同相写像$\phi:U\rightarrow D$の対$(U,\phi)$を$M$の局所座標近傍と呼ぶ．
+点$p\in U$について$\phi(p)\in D$は$\mathbb{R}^n$のベクトルとなるので$\phi(p)=\left(u^1(p),...,u^n(p)\right)$と書き，これを点$p$の局所座標と呼ぶ．
+個々の成分$u^i(p)$は$U$上の連続関数であり，これを局所座標関数と呼ぶ．
+
+定義から位相多様体$M$は$\mathbb{R}^n$の開集合$D_\alpha$と同相な$U_\alpha$をいくつか集めた$\{u_\alpha\}_\alpha\in A$でで覆われることがわかる．
+ここで添字集合$A$は可算集合でも非可算集合でもかまわない．
+このとき$U_\alpha$から$D_\alpha$への同相写像を$\phi_\alpha$と表し，局所座標近傍$(U_\alpha,\phi_\alpha)$の集まり$\{(U_\alpha,\phi_\alpha)\}_{\alpha\in A}$を局所座標近傍系などという．
+これらの局所座標近傍系内の局所座標近傍は，$U_\alpha\cap U_\beta\neq\phi$のときに，$\mathbb{R}^n$の開集合の間の連続写像$\phi_{\beta\alpha}:=\phi_\beta\circ\phi^{-1}_\alpha$,
+\eq{\phi_{\beta\alpha}:\phi_\alpha\left(U_\alpha\cap U_\beta\right)\rightarrow\phi_\beta\left(U_\alpha\cap U_\beta\right)}
+によって$M$内で関連付けられる．
+$\phi_{\beta\alpha}$は，$U_\alpha,U_\beta$に定められた局所座標関数$\phi_\alpha(p)=\left(u^1_\alpha(p),...,u^n_\alpha(p)\right),\phi_\beta(p)=\left(u^1_\beta(p),...,u^n_\beta(p)\right)$によって
+\eq{u^i_\beta(p)=u^i_\beta(u^1_\alpha(p),...,u^n_\alpha(p))\label{Coordinate transform1}}
+と表現することができ，式(\ref{Coordinate transform1})を座標変換関数と呼ぶ．
+
+以上を基に，位相多様体$M$が，その部分開集合について$U_\alpha\cap U_\beta\neq\phi$をみたす任意の$\alpha,\beta$について
+座標変換関数(\ref{Coordinate transform1})が$C^\infty$級となるような局所座標近傍系$\{(U_\alpha,\phi_\alpha)\}_{\alpha\in A}$をもつとき，
+$M$を可微分多様体という．
+$M$にこのような局所座標近傍系を1つ決めることを$M$に可微分構造を定めるという．
+%
+%
+\subsection{接空間とベクトル場}
+可微分多様体$M$とその局所座標近傍系を$\{(U_\alpha,\phi_\alpha)\}$とする．
+$M$上の関数$f:M\rightarrow\mathbb{R}$が$C^\infty$級であるとは，任意の局所座標近傍$(U_\alpha,\phi_\alpha)$について
+\eq{f\circ\phi_\alpha^{-1}:\phi_\alpha(U_\alpha)\rightarrow\mathbb{R}}
+が$C^\infty$級であることをいう．
+%また，ふたつの局所座標近傍$(U_\alpha,\phi_\alpha)$，局所座標近傍$(U_\beta,\phi_\beta)$について，
+%$U_\alpha\cap U_\beta\neq\phi$であるとき，$\phi_\beta(U_\alpha\cap U_\beta)$上で
+%\eq{f\circ\phi^{-1}_\beta=\left(f\circ\phi^{-1}_\alpha\right)\circ\left(\phi_\alpha\circ\phi^{-1}_\beta\right)=\left(f\circ\phi^{-1}_\alpha\right)\circ\phi_{\alpha\beta}}
+%と表す．ここで，$\phi_{\alpha\beta}$は$\phi_\beta(U_\alpha\cap U_\beta)\rightarrow\phi_\alpha(U_\alpha\cap U_\beta)$を表す$C^\infty$級の座標変換関数とする．
+
+上記の$M$上の$C^\infty$級関数に対してその方向微分を考える．
+局所座標近傍$(U_\alpha,\phi_\alpha;u^1_\alpha,...,u^n_\alpha)$において，$f\circ\phi^{-1}_\alpha:\phi(U_\alpha)\rightarrow\mathbb{R}$は開集合$U_\alpha$上の関数にほかならないから，
+$p\in U_\alpha$における関数$f$の偏微分
+\eq{\dfrac{\partial f}{\partial u^i_\alpha}(p):=\dfrac{\partial\left(f\circ\phi^{-1}_\alpha\right)}{\partial u^i_\alpha}(u^1_\alpha,...,u^n_\alpha), \quad i=1,...,n}
+によって定め，これから，各偏微分に対する成分を$X^i,i=1,...,n$と決める事によって，方向微分：
+\eq{\sum_{i=1}^nX^i\dfrac{\partial f}{\partial u^i_\alpha}(p)=\sum_{i=1}^nX^i\dfrac{\partial\left(f\circ\phi^{-1}_\alpha\right)}{\partial u^i_\alpha}(u^1_\alpha,...,u^n_\alpha)}
+と定めることができる．
+この式を見ると関数$f$は勝手な$C^\infty$級関数でよいことから，さらにこの式を
+\eq{\sum_{i=1}^nX^i\dfrac{\partial f}{\partial u^i_\alpha}(p)=\left\{\sum_{i=1}^nX^i\left(\dfrac{\partial}{\partial u^i_\alpha}\right)_p\right\}f}
+と書き改めて，$(\partial/\partial u^i_\alpha)_p$を点$p$において上記の偏微分を行うという演算を表すものと理解する．
+
+$2$つの方向微分
+\eq{X_p=\sum_{i=1}^nX^i\left(\dfrac{\partial}{\partial u^i_\alpha}\right)_p,Y_p=\sum_{i=1}^nY^i\left(\dfrac{\partial}{\partial u^i_\alpha}\right)_p}
+について，その和とスカラー$c\in\mathbb{R}$倍を
+\eq{X_p+Y_p=\sum_{i=1}^n\left(X^i+Y^i\right)\left(\partial/\partial u^i_\alpha\right)_p,\quad cX=\sum_{i=1}^ncX^i\left(\partial/\partial u^i_\alpha\right)_p}
+と定めれば，$\left\{\left(\partial/\partial u^i_\alpha\right)_i\right\}$は一次独立となることを示すことができ，方向微分全体が$\left\{\left(\partial/\partial u^i_\alpha\right)_i\right\}$を基底とするベクトル空間をなすことがわかる．
+このベクトル空間のことを接空間と呼び，$T_pM$と表す．
+上記で方向微分と読んでいた$X_p\in T_pM$は接ベクトルと呼ばれる．
+また，接ベクトルの成分$X^i_p$と基底$(\partial/\partial u^i_\alpha)_p$は点$p\in M$と$p$の属する局所座標近傍に依存するが，
+それが局所座標近傍を変えながら$M$全体に渡って定義されるときベクトル場と呼び，点$p$の情報を明示せずに$X$と表す．
+
+%可微分多様体$M$が与えられると，まず自然に$M$上の関数$f\in C^\infty(M)$を定められ，次に関数$f$の点$p\in M$での方向微分が考えられ，これによって点$p\in M$での接ベクトルが定義される．
+%この接ベクトルについて，点$p\in M$での接ベクトル全体がベクトル空間を成すこともわかり，これを接空間$T_pM$と呼ぶ．
+%さらに，接ベクトル$X_p\in T_pM$を多様体の各点$p\in M$で与えるものがベクトル場$X$である．
+
+整理すると，
+ベクトル場$X$は，座標近傍$(U,\phi)$とその座標関数$u^1,...,u^n$を用いて
+\eq{X=\sum_{i=1}^nX^i(u^1,...,u^n)\left(\dfrac{\partial}{\partial u^i}\right)\label{VectorField1}}
+と表される．
+また，点$p\in U$での接ベクトルは$X_p=\sum_{i=1}^nX^i_p(\partial/\partial u^i)_p$で与えられ，接ベクトルの基底$(\partial/\partial u^i)_p$に関する成分を$X^i_p=X^i(p)$と書けば，$n$個の成分は$U$上の関数となる．
+%この$n$個の関数がすべて座標近傍で$C^\infty$級となるとき，このベクトル場を$\mathbf{C^\infty}\textbf{ベクトル場}$と呼ぶ．
+%2つの座標近傍$(U_\alpha,\phi_\alpha;u^1_\alpha,...,u^n_\alpha)$,$(U_\beta,\phi_\beta;u^1_\beta,...,u^n_\beta)$について，$p\in U_\alpha\cap U_\beta\neq\phi$のとき，接ベクトルは
+%\eq{X_p=\sum_{i=1}^n\sum_{j=1}^nX_alpha^i(p)\dfrac{\partial u^j_\beta}{u^i_\alpha}\left(\dfrac{\partial}{\partial u^j_\beta}\right)_p}
+%と表され，成分関数$X_\alpha^i$が各座標近傍で$C^\infty$級という条件により，座標近傍の変換で成分のみが変化して余分な項が出現せず，うまく張り合う．
+
+可微分多様体$M$の($C^\infty$)ベクトル場全体を$\mathscr{X}(M)$と書くことにする．
+このとき，$X,Y\in\mathscr{M}$と$f\in C^\infty(M)$について$X+Y,fX\in\mathscr{X}(M)$が
+\eq{(X+Y)_p=X_p+Y_p,\quad (fX)_p=f(p)X_p}
+によって定まる．
+このように，集合$\mathscr{X}(M)$はスカラー倍を関数倍に置き換えた意味でベクトル空間を拡張した集合になっており，このような$\mathscr{X}(M)$の性質は$C^\infty(M)$加群と呼ばれる．
+
+ベクトル場の定義から，$X\in\mathscr{X}(M)$と$f\in C^\infty(M)$に対して関数$Xf$が，$p\in M$に対して$p$での方向微分の値を与える関数として
+\eq{(Xf)_p=X_pf=\sum_{i=1}^nX^i_p\left(\dfrac{\partial f}{\partial u^i}\right)_p\label{VectorFieldOperation1}}
+と定まる．
+これからベクトル場$X$は写像$X:C^\infty(M)\rightarrow C^\infty(M)$を定め，次の性質をみたすことがわかる．
+\enums{\item $X(af+bg)=aXf+bXg\quad(a,b\in\mathbb{R},f,g\in C^\infty(M)),$ \item $X(fg)=(Xf)g+f(Xg).$}
+
+
+%
+%
+\subsection{接空間の基底方向の共変微分}
+接空間の基底$(\partial/\partial u^j)$に対する，同様に接空間の基底$(\partial/\partial u^i)$方向の共変微分を
+\eq{\nabla_{\partial/\partial u^i}\left(\dfrac{\partial}{\partial u^j}\right)=\sum_{k=1}^n\Gamma_{i\ j}^{\ k}\left(\dfrac{\partial}{\partial u^k}\right)}
+と定める．
+%\Gamma_{i\ j}^{\ k}は接続係数
+% 接続係数の意味:空間の曲がり具合を表現＝接ベクトル経由の傾き
+% \nabla_{\partial/\partial u^i}Xがテンソルになる=曲がりに対して不変量となる
+
+この基底同士の共変微分を用いれば，接ベクトル
+\eq{X_p=\sum_{i=1}^nX^i_p\left(\dfrac{\partial}{\partial u^i}\right)_p}
+に対して，点$p\in M$から$p+\Delta p\in M$への変化量を計算すると
+\eq{
+	X_{p+\Delta p}-X_p
+	%&=\sum_jX^j_{p+\Delta p}\left(\dfrac{\partial}{\partial u^j}\right)_{p+\Delta p}-\sum_jX^j_{p}\left(\dfrac{\partial}{\partial u^j}\right)_{p}\\
+	%&=\sum_j\left\{X^j_{p+\Delta p}\left(\dfrac{\partial}{\partial u^j}\right)_{p+\Delta p}-X^i_{p}\left(\dfrac{\partial}{\partial u^j}\right)_{p}\right\}\\
+	&=\sum_{i,j}\Delta u^i\dfrac{\partial\left(X^j_p\frac{\partial}{\partial u^j}\right)_p}{\partial u^i}\\
+	%&=\sum_{i,j}\Delta u^i\left\{\dfrac{\partial X^j_p}{\partial u^i}\left(\dfrac{\partial}{\partial u^j}\right)_p+\sum_kX^j_p\Gamma_{i\ j}^{\ k}\left(\dfrac{\partial}{\partial u^k}\right)_p\right\}\\
+	%&=\sum_{i}\Delta u^i\left\{\sum_j\dfrac{\partial X^j_p}{\partial u^i}\left(\dfrac{\partial}{\partial u^j}\right)_p+\sum_{j,k}X^j_p\Gamma_{i\ j}^{\ k}\left(\dfrac{\partial}{\partial u^k}\right)_p\right\}\\
+	%&=\sum_{i}\Delta u^i\left\{\sum_j\dfrac{\partial X^j_p}{\partial u^i}\left(\dfrac{\partial}{\partial u^j}\right)_p+\sum_{j,k}X^k_p\Gamma_{i\ k}^{\ j}\left(\dfrac{\partial}{\partial u^j}\right)_p\right\}\\
+	&=\sum_{i,j}\Delta u^i\left\{\dfrac{\partial X^j_p}{\partial u^i}+\sum_{k}X^k_p\Gamma_{i\ k}^{\ j}\right\}\left(\dfrac{\partial}{\partial u^j}\right)_p
+}
+となる．ここで$\Delta u^i$で除して$\Delta u^i\rightarrow0$としたときの$\left(\partial/\partial u^j\right)_p$の係数を，
+接ベクトル$X_p$の$j$成分$X^j_p$に対する基底$(\partial/\partial u^i)$方向の共変微分$\nabla_{\partial/\partial u^i}X^j_p$の定義として定める．
+すなわち，
+\eq{\nabla_{\partial/\partial u^i}X^j_p=\dfrac{\partial X^j_p}{\partial u^i}+\sum_{k}X^k_p\Gamma_{i\ k}^{\ j}}
+である．
+%以降は\eq{\dfrac{\partial}{\partial u^i}=\partial_i}と書く．
+
+%任意の方向微分は接ベクトル空間$T_pM$とその直交補空間$T_p^\bot M$の和に分解できる(?)
+
+%
+%
+\subsection{ベクトル場方向の共変微分}
+ベクトル場$X\in\mathscr{X}(M)$の$p$を含む局所座標近傍$(U,\phi;u^1,...,u^n)$での表現(\ref{VectorField1})において，$U$内の曲線$C:c(t)=(u^1(t),...,u^n(t))$でその速度ベクトルが$\dot{c}(t)$がベクトル場$X_{c(t)}$に等しいものを考える．
+成分を用いて条件を書くと
+\eq{\dfrac{du^i(t)}{dt}=X^i\left(u^1(t),...,u^n(t)\right)\quad(i=1,...,n)\label{IntegralCurve1}}
+という$n$個の微分方程式で表される．
+曲線の$t=0$での初期値$c(0)$が点$p$に等しいことを要請すると，解の存在と一意性の定理より，$|t|$が十分小さな範囲で微分方程式(\ref{IntegralCurve1})の解$c(t,p)=(u^1(t,p),...,u^n(t,p))$が一意に決まることがわかる．
+点$p$を$M$上で動かして考えるとき，無数の解曲線が(少なくとも局所的には)得られる．
+こうして得られる曲線群をベクトル場$X$の積分曲線と呼ぶ．
+
+また，曲線$c(t)$の接ベクトルは$T_{c(t)}M$の元として，局所座標近傍$(U,\phi;u^1,...,u^n)$のもとで
+\eq{\dfrac{dc(t)}{dt}=\sum_{i=1}^n\dfrac{du^i(c(t))}{dt}}
+と書かれる．$c(t)$の各点で$dc(t)/dt$方向への共変微分が考えられるが，これを
+\eq{\nabla_{\dot{c}(t)}=\sum_{i=1}^n\dfrac{du^i(c(t)}{dt}\nabla_{\partial/\partial u^i}}
+と書く．
+一方，$c(t)$上の各点で接ベクトル$X(c(t))\in T_{c(t)}M$が与えられるとき，$X(c(t))$を$c(t)$上のベクトル場と呼ぼう．
+この$c(t)$上のベクトル場$X(c(t))$について$dc(t)/dt$方向への共変微分が考えられて
+\eq{
+	\nabla_{\dot{c}(t)}X(c(t))
+		&=\sum_{i,j}\dfrac{du^i(c(t)}{dt}\left(\nabla_{\partial/\partial u^i}X^j(c(t))\right)\left(\dfrac{\partial}{\partial u^j}\right)_{c(t)}\\
+		&=\sum_{i,j}\left\{\dfrac{du^i(c(t))}{dt}\dfrac{dX^j(c(t))}{du^i(c(t))}+\sum_{k}\dfrac{du^i(c(t))}{dt}\Gamma_ {i\ k}^{\ j}X^k(c(t))\right\}\left(\dfrac{\partial}{\partial u^j}\right)_{c(t)}
+		\label{CovariantDeriv1}
+}
+と計算される．
+ここで，曲線$c(t)$が$X\in\mathscr{X}(M)$とは別のベクトル場$Y\in\mathscr{X}(M)$の積分曲線になっている場合，つまり
+\eq{\dfrac{du^i(c(t)}{dt}=Y^i(c(t))}
+となっている場合を考えると(\ref{CovariantDeriv1})の接空間成分は
+\eq{\sum_{i,j}\left\{Y^i\dfrac{dX^j}{du^i}+\sum_{k}Y^i\Gamma_ {i\ k}^{\ j}X^k\right\}\dfrac{\partial}{\partial u^j}=:\nabla_YX\label{CovariantDeriv2}}
+となる．
+これは，ベクトル場$X$をベクトル場$Y$に沿って微分したものの接空間成分であり，ベクトル場$X$のベクトル場$Y$方向の共変微分と呼ばれる．
+ベクトル場$X$,$Y$に対して$\nabla_YX$もベクトル場となるので，共変微分$\nabla$は作用素$\nabla:\mathscr{X}(M)\times\mathscr{X}(M)\rightarrow\mathscr{X}(M)$と考えることができる．
+また，$X,Y,X\in\mathscr{X}(M),f\in C^\infty$に対して，$\nabla$は次の性質をみたす．
+\enums{
+	\item $\nabla_{Y+Z}X=\nabla_YX+\nabla_ZX$
+	\item $\nabla_{fY}X=f\nabla_YX$
+	\item $\nabla_Z\left(X+Y\right)=\nabla_ZX+\nabla_ZY$
+	\item $\nabla_Y\left(fX\right)=\left(Yf\right)X+f\nabla_YX$\footnote{(\ref{CovariantDeriv2})において\eq{Y^i\dfrac{d(fX^j)}{du^i}=\left(Y^i\dfrac{df}{du^i}\right)X^j+Y^if\dfrac{dX^j}{du^i}}より．}
+}
+
+%アファイン接続
+
+\subsection{曲率テンソルと捩率テンソル}
+関数$f\in C^\infty(M)$に対して，2つのベクトル場$X,Y\in\mathscr{X}(M)$に関する式(\ref{VectorFieldOperation1})で表されるベクトル場の作用を考えると，$Xf,Yf$は再び$C^\infty(M)$の関数となるので，引き続き微分を考えることができる．
+そこで，$Xf,Yf$の交換子積
+\eq{[X,Y]f=X(Yf)-Y(Xf)}
+によって定義する．
+$X,Y\in\mathscr{X}(M)$をそれぞれ
+\eq{X=\sum_{i=1}^nX^i\partial_i,Y=\sum_{i=1}^nY^i\partial_i}
+と表すと
+\eq{
+	[X,Y]f(p)
+		&=X_p(Yf)-Y_p(Xf)\\
+		&=\sum_{i=1}^nX^i\partial_i\sum_{j=1}^nY^j\partial_jf-\sum_{j=1}^nY^j\partial_j\sum_{i=1}^nX^i\partial_if\\
+		&=\sum_{i,j}\left(X^i\dfrac{\partial Y^j}{\partial u^i}-Y^i\dfrac{X^j}{du^i}\right)\dfrac{\partial f}{\partial u^j}
+}
+より，交換子積$[X,Y]$がベクトル場
+\eq{[X,Y]=\sum_{i,j}\left(X^i\dfrac{\partial Y^j}{\partial u^i}-Y^i\dfrac{\partial X^j}{\partial u^i}\right)\dfrac{\partial}{\partial u^j}}
+であることがわかる．
+
+曲率テンソル場の定義：
+\eq{R(X,Y,Z)=\nabla_X(\nabla_Y Z)-\nabla_Y(\nabla_X Z)-\nabla_{[X,Y]}Z}
+
+捩率テンソル場の定義：
+\eq{T(X,Y)=\nabla_XY-\nabla_YX-[X,Y]}
+
+\subsection{平坦な多様体}
+%
+%
+%
+\section{Riemann幾何学と多様体の平坦性についての整理}
+
+%
+%
+\subsection{Riemann計量と計量的なRiemann接続}
+%テンソルとは
+可微分多様体$M$に対して，$M$の各点$p$において，接空間$T_pM$上の正定値対称二次形式として内積を定める．
+すなわち，任意のベクトル場$X,Y,Z\in\mathscr{X}(M)$に対して，値$g(X,Y)$を決めるもので，以下をみたすものである．
+\enums{
+	\item $g(X,Y)=g(Y,X),$
+	\item $g(aX+bY,Z)=ag(X,Z)+bg(Y,Z)\quad a,b\in\mathbb{R}$
+	\item $X\neq0\Rightarrow g(X,X)>0.$
+}
+
+具体的に，各点$p$で局所座標近傍$(U_\alpha,\phi_\alpha)$をとり，$T_pM$の基底を$\{(\partial/\partial u^i_\alpha)_p\}_i$とするとき，計量を
+\eq{g^{(\alpha)}_{ij}(p)=g^{(\alpha)}\left(\left(\dfrac{\partial}{\partial u^i_\alpha}\right)_p,\left(\dfrac{\partial}{\partial u^j_\alpha}\right)_p\right)
+}
+と表すと，これが$T_pM$上の正定値内積を与える．
+$p$を動かすときに$g^{(\alpha)}(p)$は$U_\alpha$上の関数となるが，これがすべての局所座標近傍について$C^\infty$級となるとき，
+$g$は$M$の%$C^\infty$Riemann計量あるいは単に
+Riemann計量と呼ばれる．
+Riemann計量が与えられた可微分多様体をRiemann多様体という．
+
+%
+%
+%%% ↓の導出書く
+Riemann多様体$(M,g)$の各座標近傍$(U,\phi;u^1,...,u^n)$において，
+\eq{\Gamma_{ij,k}&=\Gamma_ {i\ j}^{\ l}g_{lk}=\dfrac{1}{2}\left(\partial_ig_{jk}+\partial_jg_{ki}-\partial_kg_{ij}\right)\label{RiemannConnection1}}
+で定まる$M$のアファイン接続をRiemann接続という．
+
+\eq{g(\nabla_{\partial_i}\partial_j,\partial_k)=g\left(\Gamma_{i\ j}^{\ l}\partial_l,\partial_k\right)=\Gamma_{i\ j}^{\ l}g\left(\partial_l,\partial_k\right)=\Gamma_{i\ j}^{\ l}g_{lk}}
+より，
+\eq{\Gamma_{ki,j}=g(\nabla_{\partial_i}\partial_j,\partial_k)}
+が成り立つ．　
+
+式(\ref{RiemannConnection1})の添字を変え，足し合わせると，
+\eq{\Gamma_{ki,j}+\Gamma_{kj,i}=\partial_kg_{ij}}
+これを内積の表現で書き直せば,
+\eq{\partial_kg(\partial_i,\partial_j)=&\partial_kg_{ij}=\Gamma_{ki,j}+\Gamma_{kj,i}=g(\nabla_{\partial_k}\partial_i,\partial_j)+g(\nabla_{\partial_k}\partial_j,\partial_i)}
+となる．各添字の関係に注意し，座標系によらない表現をすれば，ベクトル場$X,Y,X\in\mathscr{X}(M)$に対して
+\eq{Xg(Y,Z)=g(\nabla_XY,Z)=g(Y,\nabla_XZ)}
+となる．
+
+
+%
+%
+\subsection{Riemann幾何学と平坦性についての整理}
+
+\begin{center}\begin{tabular}{|c|c|c|}\hline
+& 計量$g$とRiemann接続 & 双対構造$(g,\nabla,\nabla^\ast)$\\\hline\hline
+平坦 & Euclid幾何 & 双対平坦空間の幾何 \\
+& (計量的な$\nabla$かつ$R=0,T=0$) & ($R=0$かつ$T=0$) \\\hline
+非平坦 & Riemann幾何 & 未開の地 \\
+& (計量的な$\nabla$かつ$T=0$，$R=0$でなくてよい) & \\\hline
+\end{tabular}\end{center}
+%
+%
+%
+\section{ダイバージェンスと一般化されたPythagorasの定理}
+
+
+\appendix
+\def\thesection{附録\Alph{section}}
+
+\section{余接空間}
+\subsection{テンソル}
+\subsection{双対空間，余接空間}
+\subsection{テンソルに対する共変微分}
+\section{局所座標近傍の貼り合わせ}
+% 参考文献に細野本，藤原本，
+% 藤岡先生の講義 http://www2.itc.kansai-u.ac.jp/~afujioka/2018/dg/dg.html
+% 愛媛大学土屋(卓也)先生の講義 http://daisy.math.sci.ehime-u.ac.jp/users/tsuchiya/math/diff_geom/index.html
+% 松本多様体の基礎，甘利サイエンス社，甘利洋書
+%\begin{thebibliography}{5}
+%	\bibitem{Kuroki2017}\href{https://www.kyoritsu-pub.co.jp/bookdetail/9784320113176}{黒木学 (2017). 「構造的因果モデルの基礎」. 共立出版.}
+%	\bibitem{ParkPark2019} \href{https://jmlr.org/papers/v20/18-819.html}{Park, G. and Park, S.  (2019). High-Dimensional Poisson Structural Equation Model Learning via $\ell$1-Regularized Regression. \textit{Journal of Machine Learning Research}, \textbf{20(95)}, 1-41.}
+%	\bibitem{ParkRaskutti2015} \href{https://proceedings.neurips.cc/paper/2015/hash/fccb60fb512d13df5083790d64c4d5dd-Abstract.html}{Park, G. and Raskutti, G. (2015). Learning large-scale poisson DAG models based on overdispersion scoring. \textit{Advances in Neural Information Processing Systems}, \textbf{28}, 631-639, 2015.}
+%	\bibitem{Shimizu2017}\href{https://www.kspub.co.jp/book/detail/1529250.html}{清水昌平 (2017). 「統計的因果探索」. 講談社. }
+%	\bibitem{YamayoshiEtAl2020}\href{(https://link.springer.com/article/10.1007/s41237-019-00095-3}{Yamayoshi, M., Tsuchida, J. and Yadohisa, H. (2020). An estimation of causal structure based on Latent LiNGAM for mixed data. \textit{Behaviormetrika}, \textbf{47}, 105\UTF{2013}121.}
+%	\bibitem{ZengEtAl2020} \href{https://arxiv.org/abs/2009.09176}{Zeng, Y., Shimizu, S., Cai, R., Xie, F., Yamamoto, M. and Hao, Z. (2020). Causal Discovery with Multi-Domain LiNGAM for Latent Factors. \textit{Arxiv preprint} arXiv:2009.09176.}
+%\end{thebibliography}
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
